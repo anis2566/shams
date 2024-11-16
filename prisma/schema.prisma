@@ -1,0 +1,451 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  User
+  Admin
+  Seller
+}
+
+enum AuthorStatus {
+  Pending
+  Active
+  Inactive
+}
+
+enum CategoryStatus {
+  Active
+  Inactive
+}
+
+enum PublicationStatus {
+  Pending
+  Active
+  Inactive
+  Suspended
+}
+
+enum AdmissionPreparationStatus {
+  Pending
+  Active
+  Inactive
+}
+
+enum BookStatus {
+  Published
+  Unpublished
+}
+
+enum OrderStatus {
+  Pending
+  Processing
+  Warehouse
+  Shipped
+  Delivered
+  Cancelled
+  Returned
+}
+
+enum PaymentMethod {
+  COD
+  MobileBanking
+  Card
+  BankTransfer
+}
+
+enum PaymentStatus {
+  Pending
+  Paid
+  Failed
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum Language {
+  Bangla
+  English
+  Arabic
+  Hindi
+  Urdu
+  French
+  German
+  Spanish
+  Portuguese
+  Italian
+  Dutch
+}
+
+enum SellerStatus {
+  Pending
+  Active
+  Inactive
+}
+
+enum BannerStatus {
+  Active
+  Inactive
+}
+
+enum Month {
+  January
+  February
+  March
+  April
+  May
+  June
+  July
+  August
+  September
+  October
+  November
+  December
+}
+
+model User {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String           @unique
+  password         String?
+  emailVerified    DateTime?
+  image            String?
+  phone            String?
+  gender           Gender?
+  dob              DateTime?
+  accounts         Account[]
+  role             Role             @default(User)
+  status           SellerStatus     @default(Pending)
+
+  pushSubscription PushSubscriber[]
+  reviews          Review[]
+  addresses        Address[]
+  orders           Order[]
+  questions        Question[]
+  answers          Answer[]
+  seller           Seller?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model PushSubscriber {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  endpoint  String
+  auth      String
+  p256dh    String
+  
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Author {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  nameBangla String?
+  email     String?   
+  imageUrl  String?
+  bio       String
+  status    AuthorStatus @default(Pending)
+  totalSold Int @default(0)
+
+  books Book[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Category {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  nameBangla String?
+  imageUrl  String
+  description String?
+  status      CategoryStatus @default(Active)
+  isFeatured Boolean @default(false)
+
+  subCategories SubCategory[]
+  books Book[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model SubCategory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  nameBangla String?
+  imageUrl  String?
+  description String?
+  status      CategoryStatus @default(Active)
+
+  categoryId String   @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  books Book[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Publication {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  nameBangla String?
+  imageUrl  String?
+  description String
+  status      PublicationStatus @default(Pending)
+
+  books Book[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Book {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  nameBangla String?
+  imageUrl  String
+  shortDescription String?
+  description String
+  status      BookStatus @default(Unpublished)
+  price       Float
+  discountPrice Float?
+  discountPercent Float?
+  length        Int
+  edition       String
+  isbn          Int?
+  rating        Float @default(0)
+  totalReview   Int @default(0)
+  totalSold     Int @default(0)
+  stock         Int @default(0)
+  demoPdfUrl    String?
+  language      Language @default(Bangla)
+
+  authorId String   @db.ObjectId
+  author   Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  categoryId String   @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  subCategoryId String?   @db.ObjectId
+  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+
+  publicationId String   @db.ObjectId
+  publication   Publication @relation(fields: [publicationId], references: [id], onDelete: Cascade)
+
+  sellerId String?   @db.ObjectId
+  seller   Seller? @relation(fields: [sellerId], references: [id])
+
+  reviews Review[]
+  orderItems OrderItem[]
+  questions Question[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+  @@index([categoryId])
+  @@index([subCategoryId])
+  @@index([publicationId])
+}
+
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  rating    Int      @default(0)
+
+  bookId  String   @db.ObjectId
+  book    Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([bookId])
+  @@index([userId])
+  @@index([rating])
+}
+
+
+model Address {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String?
+  name      String
+  phone     String
+  altPhone  String?
+  country   String
+  city      String
+  thana     String
+  zone      String?
+  address   String
+
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Order {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  phone     String
+  altPhone  String?
+  country   String
+  city      String
+  thana     String
+  zone      String?
+  address   String
+  month     Month
+
+  totalPrice Float
+  shippingCharge Float
+  totalPaidAmount Float
+
+  status OrderStatus @default(Pending)
+  paymentMethod PaymentMethod @default(COD)
+  paymentStatus PaymentStatus @default(Pending)
+
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Int
+  price     Float
+
+  orderId   String   @db.ObjectId
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  bookId    String   @db.ObjectId
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([orderId])
+  @@index([bookId])
+}
+
+
+model Question {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  question  String
+
+  userId String   @db.ObjectId
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  bookId String   @db.ObjectId
+  book   Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  answers Answer[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Answer {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  answer    String
+
+  userId String   @db.ObjectId
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  questionId String   @db.ObjectId
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Seller {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  phone     String
+  email     String?
+  imageUrl  String
+  bio String
+  totalSold   Int @default(0)
+  status      SellerStatus @default(Pending)
+
+  userId String   @db.ObjectId @unique
+  user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  books Book[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model Banner {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  imageUrl String
+  productId String? @db.ObjectId
+  status BannerStatus @default(Active)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
