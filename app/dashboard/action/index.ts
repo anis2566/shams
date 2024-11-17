@@ -47,19 +47,28 @@ export const GET_DASHBOARD_DATA = async () => {
     recentOrders,
   ] = await Promise.all([
     db.order.aggregate({
-      where: todayFilter,
+      where: {
+        ...todayFilter,
+        status: OrderStatus.Delivered,
+      },
       _sum: {
         totalPaidAmount: true,
       },
     }),
     db.order.aggregate({
-      where: weekFilter,
+      where: {
+        ...weekFilter,
+        status: OrderStatus.Delivered,
+      },
       _sum: {
         totalPaidAmount: true,
       },
     }),
     db.order.aggregate({
-      where: monthFilter,
+      where: {
+        ...monthFilter,
+        status: OrderStatus.Delivered,
+      },
       _sum: {
         totalPaidAmount: true,
       },

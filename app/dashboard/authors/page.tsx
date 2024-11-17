@@ -25,7 +25,7 @@ import { Header } from "./_components/header";
 import { CustomPagination } from "@/components/custom-pagination";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Authors",
+    title: "Shams Publication | Authors",
     description: "Authors list.",
 };
 

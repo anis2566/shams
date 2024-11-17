@@ -25,7 +25,7 @@ import { CustomPagination } from "@/components/custom-pagination";
 import { BookList } from "@/app/dashboard/books/_components/book-list";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Categories | Sub Categories | Books",
+    title: "Shams Publication | Categories | Sub Categories | Books",
     description: "Sub Categories list.",
 };
 

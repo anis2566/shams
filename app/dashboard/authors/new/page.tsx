@@ -14,7 +14,7 @@ import { ContentLayout } from "../../_components/content-layout";
 import { AuthorForm } from "./_components/author-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Authors | New",
+    title: "Shams Publication | Authors | New",
     description: "Add new author to the system.",
 };
 

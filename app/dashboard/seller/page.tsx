@@ -25,7 +25,7 @@ import { SellerList } from "./_components/seller-list";
 import { Header } from "./_components/header";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Sellers",
+    title: "Shams Publication | Sellers",
     description: "Sellers list.",
 };
 

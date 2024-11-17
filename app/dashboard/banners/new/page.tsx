@@ -14,7 +14,7 @@ import { ContentLayout } from "../../_components/content-layout";
 import { BannerForm } from "./_components/banner-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Banners | New",
+    title: "Shams Publication | Banners | New",
     description: "Add new banner to the system.",
 };
 

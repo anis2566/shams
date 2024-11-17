@@ -1,3 +1,4 @@
+import { Footer } from "./_components/footer"
 import { Header } from "./_components/header"
 import { MobileHeader } from "./_components/mobile-header"
 import { Navbar } from "./_components/navbar"
@@ -11,6 +12,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="mt-28 md:mt-0">
                 {children}
             </div>
+            <Footer />
         </div>
     )
 }

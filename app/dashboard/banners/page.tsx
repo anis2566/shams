@@ -26,7 +26,7 @@ import { Header } from "./_components/header";
 
 
 export const metadata: Metadata = {
-    title: "BookGhor | Banners",
+    title: "Shams Publication | Banners",
     description: "Banners list.",
 };
 

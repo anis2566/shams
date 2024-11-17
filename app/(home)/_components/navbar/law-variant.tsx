@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useGetSubCategories } from "../../query";
 
 export const LawVariant = () => {
-    const { data, isLoading } = useGetSubCategories("6713ac1b3d27b3f508d0c44c");
+    const { data, isLoading } = useGetSubCategories("67399d09054434037d2ef348");
 
     if (isLoading) return <LawVariantSkeleton />;
 

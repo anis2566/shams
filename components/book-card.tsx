@@ -69,7 +69,11 @@ export const BookCard = ({ book }: Props) => {
                         <div className="flex items-center gap-x-1">
                             <p className={cn("tracking-wider text-xs", book.discountPrice && "text-rose-500 line-through")}>৳{book.price}</p>
                             <p className={cn("tracking-wider text-sm", !book.discountPrice && "hidden")}>৳{book.discountPrice}</p>
-                            <p className={cn("text-[12px] md:text-xs text-green-500", !book.discountPrice && "hidden")}>({book.discountPercent}% off)</p>
+                            {
+                                book.discountPrice && (
+                                    <p className={cn("text-[12px] md:text-xs text-green-500")}>({savingsPercentage(book.price, book.discountPrice)}% off)</p>
+                                )
+                            }
                         </div>
                     </div>
                 </div>

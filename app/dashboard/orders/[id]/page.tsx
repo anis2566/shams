@@ -30,7 +30,7 @@ import { ContentLayout } from "../../_components/content-layout";
 import { StatusButton } from "./_components/status-button";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Order Details",
+    title: "Shams Publication | Order Details",
     description: "Order details.",
 };
 

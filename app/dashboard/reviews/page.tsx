@@ -24,7 +24,7 @@ import { CustomPagination } from "@/components/custom-pagination";
 import { Header } from "./_components/header";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Reviews",
+    title: "Shams Publication | Reviews",
     description: "Reviews list.",
 };
 

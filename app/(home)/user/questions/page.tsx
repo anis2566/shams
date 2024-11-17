@@ -8,7 +8,7 @@ import { CustomPagination } from "@/components/custom-pagination";
 import { Header } from "@/app/dashboard/questions/_components/header";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Questions",
+    title: "Shams Publications | Questions",
     description: "Questions page.",
 };
 

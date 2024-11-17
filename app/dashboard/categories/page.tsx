@@ -25,7 +25,7 @@ import { CategoryList } from "./_components/category-list";
 import { Header } from "./_components/header";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Categories",
+    title: "Shams Publication | Categories",
     description: "Categories list.",
 };
 

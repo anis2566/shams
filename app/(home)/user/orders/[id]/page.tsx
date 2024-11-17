@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { db } from "@/lib/prisma";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Order Details",
+    title: "Shams Publications | Order Details",
     description: "Order details page.",
 };
 

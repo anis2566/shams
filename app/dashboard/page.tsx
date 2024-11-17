@@ -1,13 +1,16 @@
-import React from 'react'
-import { ContentLayout } from './_components/content-layout'
-import { StatCard } from './_components/stat-card'
 import { Check, DollarSign, RefreshCcw, ShoppingCart } from 'lucide-react'
+
+import { ContentLayout } from './_components/content-layout'
 import { EarningCard } from './_components/earning-card'
 import { OrderStat } from './_components/order-stat'
-import { EarningChart } from './_components/chart/earning-chart'
-import { RecentOrders } from './_components/recent-orders'
-import { db } from '@/lib/prisma'
 import { GET_DASHBOARD_DATA } from './action'
+import { RecentOrders } from './_components/recent-orders'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: "Shams Publications | Dashboard",
+    description: "Dashboard.",
+};
 
 const Dashboard = async () => {
     const { todayOrder, weekOrder, monthOrder, pendingOrder, returnedOrder, deliveredOrder, recentOrders } = await GET_DASHBOARD_DATA()

@@ -184,3 +184,30 @@ export const GET_BANNERS = async () => {
   });
   return banners;
 };
+
+export const SUBSCRIBE_EMAIL = async (email: string) => {
+  try {
+    const isSubscribed = await db.subscriber.findUnique({
+      where: { email },
+    });
+
+    if (isSubscribed) {
+      return {
+        success: false,
+        error: "You are already subscribed",
+      };
+    }
+
+    await db.subscriber.create({
+      data: { email },
+    });
+
+    return {
+      success: "You have been subscribed successfully",
+    };
+  } catch (error) {
+    return {
+      error: "Something went wrong",
+    };
+  }
+};

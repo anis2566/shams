@@ -11,7 +11,7 @@ import { ReviewList } from "./_components/review-list";
 import { CustomPagination } from "@/components/custom-pagination";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Reviews",
+    title: "Shams Publications | Reviews",
     description: "Reviews page.",
 };
 

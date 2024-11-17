@@ -16,7 +16,7 @@ import { ContentLayout } from "@/app/dashboard/_components/content-layout";
 import { EditSubCategoryForm } from "./_components/edit-sub-category-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Categories | Sub | Edit",
+    title: "Shams Publication | Categories | Sub | Edit",
     description: "Edit sub category."
 };
 

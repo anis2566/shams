@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 
 import { useGetCategoriesHome } from "../../query"
+import { cn } from "@/lib/utils"
 
 export const Category = () => {
     const { data, isLoading } = useGetCategoriesHome()
@@ -36,7 +37,7 @@ export const Category = () => {
                             ))
                         ) : (
                             data?.map((category) => (
-                                <CarouselItem key={category.id} className="pl-4 md:basis-1/4 lg:basis-1/4">
+                                <CarouselItem key={category.id} className={cn("pl-4 md:basis-1/4 lg:basis-1/4", category.subCategories.length === 0 && "hidden")}>
                                     <Card className="p-0 min-h-[410px] flex flex-col justify-between">
                                         <CardHeader className="py-3 pl-6">
                                             <CardTitle>{category.name}</CardTitle>

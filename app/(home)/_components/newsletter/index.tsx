@@ -5,15 +5,17 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import { useSubscribeMutation } from "../../mutation";
+
 export const Newsletter = () => {
     const [email, setEmail] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    const { mutate, isPending } = useSubscribeMutation({ setIsSubmitted });
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // TODO: Implement newsletter subscription logic here
-        console.log("Subscribing email:", email);
-        setIsSubmitted(true);
+        mutate(email);
     };
 
     return (
@@ -37,10 +39,11 @@ export const Newsletter = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
+                            disabled={isPending}
                             className="flex-grow"
                         />
-                        <Button type="submit" className="w-full sm:w-auto">
-                            Subscribe
+                        <Button type="submit" className="w-full sm:w-auto" disabled={isPending}>
+                            {isPending ? "Subscribing..." : "Subscribe"}
                         </Button>
                     </form>
                 ) : (

@@ -25,7 +25,7 @@ import { BookList } from "./_components/book-list";
 import { Header } from "./_components/header";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Books",
+    title: "Shams Publication | Books",
     description: "Books list.",
 };
 

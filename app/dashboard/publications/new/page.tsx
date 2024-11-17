@@ -14,7 +14,7 @@ import { ContentLayout } from "../../_components/content-layout";
 import { PublicationForm } from "./_components/publication-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Publications | New",
+    title: "Shams Publication | Publications | New",
     description: "Add new publication to the system.",
 };
 

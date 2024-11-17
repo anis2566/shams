@@ -16,8 +16,7 @@ import {
 import { Authors } from "./authors"
 import { Categories } from "./categories"
 import { Publications } from "./publications"
-import { AdmissionPreparation } from "./admission-preparation"
-import { LawVariant } from "./law-variant"
+// import { LawVariant } from "./law-variant"
 
 export function Navbar() {
     return (
@@ -42,19 +41,19 @@ export function Navbar() {
                             <Publications />
                         </NavigationMenuContent>
                     </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    {/* <NavigationMenuItem>
                         <NavigationMenuTrigger>ভর্তি প্রস্তুতি</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <AdmissionPreparation />
                         </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    </NavigationMenuItem> */}
+                    {/* <NavigationMenuItem>
                         <NavigationMenuTrigger>আইন বিষয়ক</NavigationMenuTrigger>
                         <NavigationMenuContent>
                             <LawVariant />
                         </NavigationMenuContent>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
+                    </NavigationMenuItem> */}
+                    {/* <NavigationMenuItem>
                         <Link href="/books?category=6713adf83d27b3f508d0c44e" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                                 ইসলামি ভাষার বই
@@ -72,6 +71,13 @@ export function Navbar() {
                         <Link href="/books?category=6713ae9c3d27b3f508d0c450" legacyBehavior passHref>
                             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                                 IELTS বই
+                            </NavigationMenuLink>
+                        </Link>
+                    </NavigationMenuItem> */}
+                    <NavigationMenuItem>
+                        <Link href="/books?category=67399d09054434037d2ef348" legacyBehavior passHref>
+                            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                                আইন বিষয়ক
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>

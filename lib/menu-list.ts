@@ -14,6 +14,7 @@ import {
   GalleryVertical,
   Users,
   Radio,
+  UserCheck,
 } from "lucide-react";
 
 type Submenu = {
@@ -204,6 +205,18 @@ export function getAdminMenuList(pathname: string): Group[] {
               icon: List,
             },
           ],
+        },
+      ],
+    },
+    {
+      groupLabel: "Promotion",
+      menus: [
+        {
+          href: "/dashboard/subscribers",
+          label: "Subscribers",
+          active: pathname.includes("/dashboard/subscribers"),
+          icon: UserCheck,
+          submenus: [],
         },
       ],
     },

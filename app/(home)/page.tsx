@@ -7,7 +7,6 @@ import { DeliveryBanner2 } from "@/components/delivery-banner-2"
 import { RecentlyAdded } from "./_components/recently-added"
 import { FeatureCategory } from "./_components/feature-category"
 import { Newsletter } from "./_components/newsletter"
-import { Footer } from "./_components/footer"
 import { ShamsPublicationBook } from "./_components/shams-publication-book"
 import { BestSellers } from "./_components/best-sellers"
 import { ModeToggle } from "@/components/mode-toggle"
@@ -27,7 +26,6 @@ const Home = () => {
       <RecentlyAdded />
       <BestSellers />
       <Newsletter />
-      <Footer />
     </div>
   )
 }

@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-    title: "BookGhor | Categories | Sub Categories | New",
+    title: "Shams Publication | Categories | Sub Categories | New",
     description: "New Sub Category.",
 };
 

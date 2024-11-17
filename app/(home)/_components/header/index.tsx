@@ -8,6 +8,7 @@ import { CartButton } from "./cart-button"
 import { WishlistButton } from "./wishlist-button"
 import { auth } from "@/auth"
 import { UserButton } from "./user-button"
+import { Notification } from "@/components/notification"
 
 export const Header = async () => {
     const session = await auth();
@@ -23,6 +24,7 @@ export const Header = async () => {
                 <div className="flex items-center gap-x-2">
                     <WishlistButton />
                     <CartButton />
+                    <Notification />
                     {
                         session?.userId ? (
                             <UserButton />

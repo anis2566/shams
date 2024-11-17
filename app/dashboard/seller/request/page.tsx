@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Metadata } from "next";
 
 import {
     Breadcrumb,
@@ -14,6 +15,10 @@ import { SellerStatus } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { RequestList } from "./_components/request-list";
 
+export const metadata: Metadata = {
+    title: "Shams Publication | Sellers | Request",
+    description: "Sellers request list.",
+};
 
 const SellerRequest = async () => {
     const sellers = await db.seller.findMany({

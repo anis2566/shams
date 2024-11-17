@@ -14,7 +14,7 @@ import { ContentLayout } from "../../_components/content-layout";
 import { SellerForm } from "./_components/seller-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Sellers | New",
+    title: "Shams Publication | Sellers | New",
     description: "Add new seller to the system.",
 };
 

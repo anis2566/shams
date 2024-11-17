@@ -7,7 +7,7 @@ import { AvatarForm } from './_components/avatar-form';
 import { PasswordForm } from './_components/password-form';
 
 export const metadata: Metadata = {
-  title: "BookGhor | Profile",
+  title: "Shams Publications | Profile",
   description: "Profile page.",
 };
 

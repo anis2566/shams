@@ -19,7 +19,7 @@ import { CustomPagination } from "@/components/custom-pagination";
 import { BookList } from "../../books/_components/book-list";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Authors | Books",
+    title: "Shams Publication | Authors | Books",
     description: "Books list.",
 };
 

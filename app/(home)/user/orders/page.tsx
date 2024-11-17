@@ -8,7 +8,7 @@ import { OrderStatus } from '@prisma/client';
 import { CustomPagination } from '@/components/custom-pagination';
 
 export const metadata: Metadata = {
-    title: "BookGhor | Orders",
+    title: "Shams Publications | Orders",
     description: "Orders page.",
 };
 

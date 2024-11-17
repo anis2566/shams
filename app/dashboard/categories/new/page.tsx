@@ -14,7 +14,7 @@ import { ContentLayout } from "../../_components/content-layout";
 import { CategoryForm } from "./_components/category-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Categories | New",
+    title: "Shams Publication | Categories | New",
     description: "Add new category to the system.",
 };
 

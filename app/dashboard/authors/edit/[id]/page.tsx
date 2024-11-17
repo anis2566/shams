@@ -16,7 +16,7 @@ import { ContentLayout } from "@/app/dashboard/_components/content-layout";
 import { EditAuthorForm } from "./_components/edit-author-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Authors | Edit",
+    title: "Shams Publication | Authors | Edit",
     description: "Edit author."
 };
 

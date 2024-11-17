@@ -26,6 +26,7 @@ import { DeleteSellerBookModal } from "@/app/seller/books/_components/delete-mod
 import { BookStatusModal } from "@/app/dashboard/books/_components/status-modal";
 import { DeleteOrderModal } from "@/app/dashboard/orders/_components/delete-modal";
 import { SellerOrderStatusModal } from "@/app/seller/orders/_components/status-modal";
+import { DeleteSubscriberModal } from "@/app/dashboard/subscribers/_components/delete-modal";
 
 export const ModalProvider = () => {
     return (
@@ -56,6 +57,7 @@ export const ModalProvider = () => {
             <BookStatusModal />
             <DeleteOrderModal />
             <SellerOrderStatusModal />
+            <DeleteSubscriberModal />
         </>
     );
 };
