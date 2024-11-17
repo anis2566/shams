@@ -46,7 +46,7 @@ export function ContactForm() {
                         <h2 className="text-3xl font-bold md:text-4xl">Connect With Us</h2>
                     </div>
                     <p className="mb-8 text-muted-foreground lg:w-5/6">
-                        Reach out to us with your questions or concerns, and we'll get back to you as soon as possible. We're here to help you with any inquiries you might have about our services or products.
+                        Reach out to us with your questions or concerns, and we will get back to you as soon as possible. We are here to help you with any inquiries you might have about our services or products.
                     </p>
                 </div>
 
