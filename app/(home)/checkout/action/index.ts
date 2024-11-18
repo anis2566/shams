@@ -92,6 +92,9 @@ export const CREATE_ORDER_ACTION = async (values: OrderSchemaType) => {
             JSON.stringify({
               title: `New Order`,
               body: `You have a new order from ${order.name}`,
+              data: {
+                redirectUrl: `/dashboard/orders/${order.id}`,
+              },
             }),
             {
               vapidDetails: {
