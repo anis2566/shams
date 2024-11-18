@@ -65,10 +65,18 @@ export const CREATE_ORDER_ACTION = async (values: OrderSchemaType) => {
       });
     }
 
-    const subscribers = await db.pushSubscriber.findMany({
-      where: { userId },
-    });
     const { adminId } = await GET_ADMIN();
+
+    if (!adminId) {
+      return {
+        success: "Order placed.",
+        id: order.id,
+      };
+    }
+
+    const subscribers = await db.pushSubscriber.findMany({
+      where: { userId: adminId },
+    });
 
     if (subscribers.length > 0) {
       const pushPromises = subscribers.map((item) => {
