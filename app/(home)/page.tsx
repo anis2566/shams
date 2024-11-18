@@ -15,7 +15,6 @@ import { BestSelling } from "./_components/best-selling"
 const Home = () => {
   return (
     <div className="mt-4 space-y-12">
-      <ModeToggle />
       <Slider />
       <Category />
       <TrendingBooks />

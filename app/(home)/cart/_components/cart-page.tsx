@@ -6,13 +6,16 @@ import { ArrowRight, Heart, Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Author, Book } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import Autoplay from "embla-carousel-autoplay"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
+import { cn } from "@/lib/utils";
 
 interface BookWithAuthor extends Book {
     author: Author;
@@ -47,7 +50,7 @@ export const CartPage = () => {
     }
 
     return (
-        <div className="mt-4 px-3 md:px-0">
+        <div className="mt-4 px-3 md:px-0 relative">
             <div className="grid md:grid-cols-3 gap-6">
                 <Card className="md:col-span-2">
                     <CardHeader>
@@ -152,26 +155,74 @@ export const CartPage = () => {
                             <p>Total</p>
                             <p>৳{cart.reduce((acc, item) => acc + (item.quantity * item.price), 100).toFixed(2)}</p>
                         </div>
-                        {
-                            session && session.userId ? (
+                        <div className="hidden md:block">
+                            {
+                                session && session.userId ? (
 
-                                <Button className="w-full" asChild>
-                                    <Link href="/checkout">
-                                        Checkout
-                                        <ArrowRight className="w-4 h-4 ml-2 animate-pulse" />
-                                    </Link>
-                                </Button>
-                            ) : (
-                                <Button className="w-full" asChild>
-                                    <Link href={`/auth/sign-in?callbackUrl=/cart`}>
-                                        Login to checkout
-                                        <ArrowRight className="w-4 h-4 ml-2 animate-pulse" />
-                                    </Link>
-                                </Button>
-                            )
-                        }
+                                    <Button className="w-full" asChild>
+                                        <Link href="/checkout">
+                                            Checkout
+                                            <ArrowRight className="w-4 h-4 ml-2 animate-pulse" />
+                                        </Link>
+                                    </Button>
+                                ) : (
+                                    <Button className="w-full" asChild>
+                                        <Link href={`/auth/sign-in?callbackUrl=/cart`}>
+                                            Login to checkout
+                                            <ArrowRight className="w-4 h-4 ml-2 animate-pulse" />
+                                        </Link>
+                                    </Button>
+                                )
+                            }
+                        </div>
                     </CardContent>
                 </Card>
+            </div>
+
+            <div className={cn("flex md:hidden flex-col fixed bottom-0 left-0 right-0 z-50 px-3")}>
+                <Carousel
+                    opts={{
+                        align: "start",
+                        loop: true,
+                    }}
+                    plugins={[
+                        Autoplay({
+                            delay: 5000,
+                        }),
+                    ]}
+                    orientation="vertical"
+                    className={cn("w-full bg-background")}
+                >
+                    <CarouselContent className="h-[60px]">
+                        {
+                            ["সম্পূর্ণ ক্যাশ অন ডেলিভারিতে অর্ডার করুন", "পণ্য হতে পেয়ে মূল্য পরিশোধ করুন", "৭ দিনে হ্যাপি রিটার্নস"].map((text) => (
+                                <CarouselItem key={text} className="flex items-center justify-center">
+                                    <p className="text-sm text-muted-foreground">{text}</p>
+                                </CarouselItem>
+                            ))
+                        }
+                    </CarouselContent>
+                </Carousel>
+                <div>
+                    {
+                        session && session.userId ? (
+
+                            <Button className="w-full" asChild>
+                                <Link href="/checkout">
+                                    Checkout
+                                    <ArrowRight className="w-4 h-4 ml-2 animate-pulse" />
+                                </Link>
+                            </Button>
+                        ) : (
+                            <Button className="w-full" asChild>
+                                <Link href={`/auth/sign-in?callbackUrl=/cart`}>
+                                    Login to checkout
+                                    <ArrowRight className="w-4 h-4 ml-2 animate-pulse" />
+                                </Link>
+                            </Button>
+                        )
+                    }
+                </div>
             </div>
         </div>
     )

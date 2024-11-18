@@ -6,6 +6,7 @@ import { PaymentMethod } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Autoplay from "embla-carousel-autoplay"
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -14,11 +15,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 import { LoadingButton } from "@/components/loading-button";
 import { useCart } from "@/hooks/use-cart";
 import { OrderSchema, OrderSchemaType } from "@/schema/order.schema";
 import { useCreateOrderMutation } from "../mutation";
+import { cn } from "@/lib/utils";
 
 export const CheckoutForm = () => {
     const router = useRouter()
@@ -82,7 +85,7 @@ export const CheckoutForm = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full grid md:grid-cols-3 gap-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full grid md:grid-cols-3 gap-6 relative">
                 <div className="md:col-span-2 space-y-4">
                     <Card>
                         <CardHeader>
@@ -304,6 +307,39 @@ export const CheckoutForm = () => {
                             </div>
                         </CardContent>
                     </Card>
+                    <LoadingButton
+                        isLoading={isPending}
+                        title={`Confirm Order ৳${(totalPrice + form.watch("shippingCharge")).toFixed(2)}`}
+                        loadingTitle="Processing..."
+                        onClick={() => { }}
+                        type="submit"
+                        className="hidden md:block"
+                    />
+                </div>
+                <div className={cn("flex md:hidden flex-col fixed bottom-0 left-0 right-0 z-50 px-3")}>
+                    <Carousel
+                        opts={{
+                            align: "start",
+                            loop: true,
+                        }}
+                        plugins={[
+                            Autoplay({
+                                delay: 5000,
+                            }),
+                        ]}
+                        orientation="vertical"
+                        className={cn("w-full bg-background")}
+                    >
+                        <CarouselContent className="h-[60px]">
+                            {
+                                ["সম্পূর্ণ ক্যাশ অন ডেলিভারিতে অর্ডার করুন", "পণ্য হতে পেয়ে মূল্য পরিশোধ করুন", "৭ দিনে হ্যাপি রিটার্নস"].map((text) => (
+                                    <CarouselItem key={text} className="flex items-center justify-center">
+                                        <p className="text-sm text-muted-foreground">{text}</p>
+                                    </CarouselItem>
+                                ))
+                            }
+                        </CarouselContent>
+                    </Carousel>
                     <LoadingButton
                         isLoading={isPending}
                         title={`Confirm Order ৳${(totalPrice + form.watch("shippingCharge")).toFixed(2)}`}
