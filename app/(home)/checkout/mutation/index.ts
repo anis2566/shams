@@ -14,8 +14,8 @@ export const useCreateOrderMutation = () => {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.success);
-        // resetCart();
-        // router.push(`/invoice/${data.id}`);
+        resetCart();
+        router.push(`/invoice/${data.id}`);
       } else {
         toast.error(data.error);
       }

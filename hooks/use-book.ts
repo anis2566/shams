@@ -41,3 +41,17 @@ export const useBookStatus = create<BookStatusState>()((set) => ({
   onOpen: (id) => set({ open: true, id }),
   onClose: () => set({ open: false, id: "" }),
 }));
+
+interface BookGenreState {
+  open: boolean;
+  id: string;
+  onOpen: (id: string) => void;
+  onClose: () => void;
+}
+
+export const useBookGenre = create<BookGenreState>()((set) => ({
+  open: false,
+  id: "",
+  onOpen: (id) => set({ open: true, id }),
+  onClose: () => set({ open: false, id: "" }),
+}));

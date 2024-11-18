@@ -1,7 +1,7 @@
 "use client";
 
 import { Author, Book, BookStatus, Category, Publication, Seller } from "@prisma/client";
-import { MoreVerticalIcon, Pen, RefreshCcw, Trash2 } from "lucide-react";
+import { MoreVerticalIcon, Pen, RefreshCcw, SquareStack, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { EmptyData } from "@/components/empty-data";
-import { useBook, useBookStatus } from "@/hooks/use-book";
+import { useBook, useBookGenre, useBookStatus } from "@/hooks/use-book";
 
 interface BookWithRelations extends Book {
     category: Category;
@@ -34,6 +34,7 @@ interface Props {
 export const BookList = ({ books }: Props) => {
     const { onOpen } = useBook();
     const { onOpen: onOpenBookStatus } = useBookStatus();
+    const { onOpen: onOpenBookGenre } = useBookGenre();
 
     if (books.length === 0) {
         return <EmptyData title="No books found" />
@@ -52,6 +53,7 @@ export const BookList = ({ books }: Props) => {
                 <TableHead>Discount Price</TableHead>
                 <TableHead>Stock</TableHead>
                 <TableHead>Total Sold</TableHead>
+                <TableHead>Genre</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Action</TableHead>
             </TableHeader>
@@ -74,6 +76,15 @@ export const BookList = ({ books }: Props) => {
                         <TableCell>{book.stock}</TableCell>
                         <TableCell>{book.totalSold}</TableCell>
                         <TableCell>
+                            {
+                                book.genre ? (
+                                    <Badge variant="secondary" className="rounded-full">{book.genre}</Badge>
+                                ) : (
+                                    "-"
+                                )
+                            }
+                        </TableCell>
+                        <TableCell>
                             <Badge variant={book.status === BookStatus.Unpublished ? "destructive" : "default"} className="rounded-full">{book.status}</Badge>
                         </TableCell>
                         <TableCell>
@@ -93,6 +104,10 @@ export const BookList = ({ books }: Props) => {
                                     <Button variant="ghost" className="flex items-center justify-start gap-x-2 w-full" onClick={() => onOpenBookStatus(book.id)}>
                                         <RefreshCcw className="w-4 h-4 mr-2" />
                                         Change Status
+                                    </Button>
+                                    <Button variant="ghost" className="flex items-center justify-start gap-x-2 w-full" onClick={() => onOpenBookGenre(book.id)}>
+                                        <SquareStack className="w-4 h-4 mr-2" />
+                                        Change Genre
                                     </Button>
                                     <Button variant="ghost" className="flex items-center justify-start gap-x-2 w-full text-red-500 hover:text-red-400" onClick={() => onOpen(book.id)}>
                                         <Trash2 className="w-4 h-4 mr-2" />

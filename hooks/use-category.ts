@@ -14,6 +14,20 @@ export const useCategory = create<CategoryState>()((set) => ({
   onClose: () => set({ open: false, id: "" }),
 }));
 
+interface CategoryGenreState {
+  open: boolean;
+  id: string;
+  onOpen: (id: string) => void;
+  onClose: () => void;
+}
+
+export const useCategoryGenre = create<CategoryGenreState>()((set) => ({
+  open: false,
+  id: "",
+  onOpen: (id) => set({ open: true, id }),
+  onClose: () => set({ open: false, id: "" }),
+}));
+
 interface NewCategoryState {
   open: boolean;
   onOpen: () => void;

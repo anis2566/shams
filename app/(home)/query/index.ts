@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import {
   GET_AUTHORS,
   GET_BANNERS,
+  GET_BEST_SELLING_BOOKS,
+  GET_BOOK_BY_PUBLICATION,
   GET_CATEGORIES,
   GET_CATEGORIES_HOME,
   GET_DISCOUNT_BOOKS,
@@ -90,6 +92,15 @@ export const useGetForYou = () => {
   });
 };
 
+export const useGetBookByPublication = (publicationId: string) => {
+  return useQuery({
+    queryKey: ["book-by-publication"],
+    queryFn: async () => await GET_BOOK_BY_PUBLICATION(publicationId),
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+};
+
 export const useGetDiscountBooks = () => {
   return useQuery({
     queryKey: ["discount-books"],
@@ -103,6 +114,15 @@ export const useGetRecentlyAdded = () => {
   return useQuery({
     queryKey: ["recently-added"],
     queryFn: async () => await GET_RECENTLY_ADDED(),
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60 * 24,
+  });
+};
+
+export const useGetBestSellingBooks = () => {
+  return useQuery({
+    queryKey: ["best-selling-books"],
+    queryFn: async () => await GET_BEST_SELLING_BOOKS(),
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 60 * 24,
   });

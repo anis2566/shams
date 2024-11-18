@@ -9,6 +9,7 @@ import {
 } from "@prisma/client";
 
 import { db } from "@/lib/prisma";
+import { BookGenre, CategoryGenre } from "@/constant";
 
 export const GET_AUTHORS = async () => {
   const authors = await db.author.findMany({
@@ -99,6 +100,7 @@ export const GET_TRENDING_BOOKS = async () => {
   const books = await db.book.findMany({
     where: {
       status: BookStatus.Published,
+      genre: BookGenre.TRENDING,
     },
     include: {
       author: true,
@@ -120,7 +122,23 @@ export const GET_FOR_YOU = async () => {
       author: true,
     },
     orderBy: {
-      createdAt: "desc",
+      rating: "asc",
+    },
+    take: 12,
+  });
+  return books;
+};
+
+export const GET_BOOK_BY_PUBLICATION = async (publicationId: string) => {
+  const books = await db.book.findMany({
+    where: {
+      publicationId,
+    },
+    include: {
+      author: true,
+    },
+    orderBy: {
+      totalSold: "asc",
     },
     take: 12,
   });
@@ -131,15 +149,31 @@ export const GET_DISCOUNT_BOOKS = async () => {
   const books = await db.book.findMany({
     where: {
       status: BookStatus.Published,
-      discountPrice: {
-        not: null,
+      discountPercent: {
+        not: null || 0,
       },
     },
     include: {
       author: true,
     },
     orderBy: {
-      createdAt: "desc",
+      discountPercent: "asc",
+    },
+    take: 12,
+  });
+  return books;
+};
+
+export const GET_BEST_SELLING_BOOKS = async () => {
+  const books = await db.book.findMany({
+    where: {
+      status: BookStatus.Published,
+    },
+    include: {
+      author: true,
+    },
+    orderBy: {
+      totalSold: "asc",
     },
     take: 12,
   });
@@ -166,7 +200,7 @@ export const GET_FEATURE_CATEGORY = async () => {
   const categories = await db.category.findMany({
     where: {
       status: CategoryStatus.Active,
-      isFeatured: true,
+      genre: CategoryGenre.FEATURED,
     },
     take: 6,
   });

@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 import {
+  CHANGE_BOOK_GENRE_ACTION,
   CHANGE_BOOK_STATUS_ACTION,
   CREATE_BOOK_ACTION,
   DELETE_BOOK_ACTION,
@@ -72,6 +73,28 @@ export const useChangeBookStatusMutation = ({
 }: ChangeBookStatusProps) => {
   return useMutation({
     mutationFn: CHANGE_BOOK_STATUS_ACTION,
+    onSuccess: (data) => {
+      if (data.error) {
+        toast.error(data.error);
+      }
+
+      if (data.success) {
+        toast.success(data.success);
+        onClose();
+      }
+    },
+  });
+};
+
+interface ChangeBookGenreProps {
+  onClose: () => void;
+}
+
+export const useChangeBookGenreMutation = ({
+  onClose,
+}: ChangeBookGenreProps) => {
+  return useMutation({
+    mutationFn: CHANGE_BOOK_GENRE_ACTION,
     onSuccess: (data) => {
       if (data.error) {
         toast.error(data.error);

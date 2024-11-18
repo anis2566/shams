@@ -60,11 +60,16 @@ export const CREATE_BOOK_ACTION = async (values: BookSchemaType) => {
       nameBangla = tr(data.name);
     }
 
+    const discountPercent = data.discountPrice
+      ? (data.discountPrice / data.price) * 100
+      : 0;
+
     await db.book.create({
       data: {
         ...data,
         nameBangla,
         sellerId: seller.id,
+        discountPercent: Math.round(discountPercent),
       },
     });
 

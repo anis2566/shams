@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { CheckoutForm } from "./_components/checkout-form";
 
 export const metadata: Metadata = {
-    title: "BookGhor | Checkout",
+    title: "Shams Publication | Checkout",
     description: "Checkout.",
 };
 

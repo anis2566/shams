@@ -10,14 +10,14 @@ export const OrderItemSchema = z.object({
 });
 
 export const OrderSchema = z.object({
-  name: requiredString,
-  phone: requiredString,
+  name: requiredString.min(3, { message: "at least 3 characters long" }),
+  phone: requiredString.length(11, { message: "must be 11 digits long" }),
   altPhone: z.string().optional(),
   country: requiredString,
   city: requiredString,
   thana: requiredString,
   zone: z.string().optional(),
-  address: requiredString,
+  address: requiredString.min(8, { message: "at least 8 characters long" }),
   shippingCharge: z.number(),
   paymentMethod: z
     .nativeEnum(PaymentMethod)

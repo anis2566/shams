@@ -208,6 +208,7 @@ model Category {
   description String?
   status      CategoryStatus @default(Active)
   isFeatured Boolean @default(false)
+  genre       String?
 
   subCategories SubCategory[]
   books Book[]
@@ -270,6 +271,7 @@ model Book {
   stock         Int @default(0)
   demoPdfUrl    String?
   language      Language @default(Bangla)
+  genre         String?
 
   authorId String   @db.ObjectId
   author   Author @relation(fields: [authorId], references: [id], onDelete: Cascade)

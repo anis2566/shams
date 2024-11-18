@@ -97,3 +97,13 @@ export const sellerSidebarNavs: SellerSidebarNavs[] = [
     icon: User,
   },
 ];
+
+export enum BookGenre {
+  TRENDING = "Trending",
+  NONE = "None",
+}
+
+export enum CategoryGenre {
+  FEATURED = "Featured",
+  NONE = "None",
+}

@@ -9,6 +9,7 @@ import {
   SubCategorySchema,
   SubCategorySchemaType,
 } from "@/schema/sub-category.schema";
+import { CategoryGenre } from "@/constant";
 
 export const CREATE_CATEGORY_ACTION = async (values: CategorySchemaType) => {
   const { data, success } = CategorySchema.safeParse(values);
@@ -103,6 +104,43 @@ export const EDIT_CATEGORY_ACTION = async ({ id, values }: EditCategory) => {
   } catch (error) {
     return {
       error: "Failed to update category",
+    };
+  }
+};
+
+interface UpdateCategoryGenre {
+  id: string;
+  genre: CategoryGenre;
+}
+
+export const UPDATE_CATEGORY_GENRE_ACTION = async ({
+  id,
+  genre,
+}: UpdateCategoryGenre) => {
+  try {
+    const category = await db.category.findUnique({
+      where: { id },
+    });
+
+    if (!category) {
+      return {
+        error: "Category not found",
+      };
+    }
+
+    await db.category.update({
+      where: { id },
+      data: { genre },
+    });
+
+    revalidatePath(`/dashboard/categories/${id}`);
+
+    return {
+      success: "Category genre updated",
+    };
+  } catch (error) {
+    return {
+      error: "Failed to update category genre",
     };
   }
 };

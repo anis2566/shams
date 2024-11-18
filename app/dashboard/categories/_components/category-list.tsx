@@ -1,7 +1,7 @@
 "use client";
 
 import { Category, CategoryStatus } from "@prisma/client";
-import { BringToFront, Pen, Trash2, MoreVerticalIcon, BookOpen } from "lucide-react";
+import { BringToFront, Pen, Trash2, MoreVerticalIcon, BookOpen, Layers2 } from "lucide-react";
 import Link from "next/link";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { EmptyData } from "@/components/empty-data";
-import { useCategory } from "@/hooks/use-category";
+import { useCategory, useCategoryGenre } from "@/hooks/use-category";
 
 interface CategoryWithRelations extends Category {
     books: { id: string }[];
@@ -24,6 +24,7 @@ interface Props {
 
 export const CategoryList = ({ categories }: Props) => {
     const { onOpen } = useCategory();
+    const { onOpen: onOpenCategoryGenre } = useCategoryGenre();
 
     if (categories.length === 0) {
         return <EmptyData title="No categories found" />
@@ -37,6 +38,7 @@ export const CategoryList = ({ categories }: Props) => {
                     <TableHead>Name</TableHead>
                     <TableHead>Books</TableHead>
                     <TableHead>Sub Categories</TableHead>
+                    <TableHead>Genre</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Action</TableHead>
                 </TableRow>
@@ -55,6 +57,15 @@ export const CategoryList = ({ categories }: Props) => {
                         <TableCell>{category.name}</TableCell>
                         <TableCell>{category.books.length}</TableCell>
                         <TableCell>{category.subCategories.length}</TableCell>
+                        <TableCell>
+                            {
+                                category.genre ? (
+                                    <Badge className="rounded-full" variant="secondary">{category.genre}</Badge>
+                                ) : (
+                                    "-"
+                                )
+                            }
+                        </TableCell>
                         <TableCell>
                             <Badge className="rounded-full" variant={category.status === CategoryStatus.Active ? "default" : "destructive"}>{category.status}</Badge>
                         </TableCell>
@@ -83,6 +94,10 @@ export const CategoryList = ({ categories }: Props) => {
                                             <Pen className="w-4 h-4 mr-2" />
                                             Edit
                                         </Link>
+                                    </Button>
+                                    <Button variant="ghost" className="flex items-center justify-start gap-x-2 w-full" onClick={() => onOpenCategoryGenre(category.id)}>
+                                        <Layers2 className="w-4 h-4 mr-2" />
+                                        Change Genre
                                     </Button>
                                     <Button variant="ghost" className="flex items-center justify-start gap-x-2 w-full text-red-500 hover:text-red-400" onClick={() => onOpen(category.id)}>
                                         <Trash2 className="w-4 h-4 mr-2" />

@@ -9,6 +9,7 @@ import {
   DELETE_SUB_CATEGORY_ACTION,
   EDIT_CATEGORY_ACTION,
   EDIT_SUB_CATEGORY_ACTION,
+  UPDATE_CATEGORY_GENRE_ACTION,
 } from "../action";
 
 export const useCreateCategoryMutation = () => {
@@ -37,6 +38,29 @@ export const useEditCategoryMutation = () => {
       if (data.success) {
         toast.success(data.success);
         router.push("/dashboard/categories");
+      }
+      if (data.error) {
+        toast.error(data.error);
+      }
+    },
+  });
+
+  return mutation;
+};
+
+interface UpdateCategoryGenreMutationProps {
+  onClose: () => void;
+}
+
+export const useUpdateCategoryGenreMutation = ({
+  onClose,
+}: UpdateCategoryGenreMutationProps) => {
+  const mutation = useMutation({
+    mutationFn: UPDATE_CATEGORY_GENRE_ACTION,
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(data.success);
+        onClose();
       }
       if (data.error) {
         toast.error(data.error);

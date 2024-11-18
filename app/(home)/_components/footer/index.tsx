@@ -25,7 +25,7 @@ export const Footer = () => {
                         <Link href="/books" className="opacity-60 hover:opacity-100">
                             All Books
                         </Link>
-                        <Link href="/books?category=6713ac1b3d27b3f508d0c44c" className="opacity-60 hover:opacity-100">
+                        <Link href="/books?category=67399d09054434037d2ef348" className="opacity-60 hover:opacity-100">
                             আইন বিষয়ক বুক
                         </Link>
                         <Link href="/books?discount=true" className="opacity-60 hover:opacity-100">

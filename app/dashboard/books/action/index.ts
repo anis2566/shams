@@ -6,6 +6,7 @@ import { transliterate as tr } from "transliteration";
 import { db } from "@/lib/prisma";
 import { BookSchema, BookSchemaType } from "@/schema/book.schema";
 import { BookStatus } from "@prisma/client";
+import { BookGenre } from "@/constant";
 
 export const CREATE_BOOK_ACTION = async (values: BookSchemaType) => {
   const { data, success } = BookSchema.safeParse(values);
@@ -36,10 +37,15 @@ export const CREATE_BOOK_ACTION = async (values: BookSchemaType) => {
       nameBangla = tr(data.name);
     }
 
+    const discountPercent = data.discountPrice
+      ? (data.discountPrice / data.price) * 100
+      : 0;
+
     await db.book.create({
       data: {
         ...data,
         nameBangla,
+        discountPercent: Math.round(discountPercent),
       },
     });
 
@@ -270,6 +276,44 @@ export const CHANGE_BOOK_STATUS_ACTION = async ({
   } catch (error) {
     return {
       error: "Failed to change book status",
+    };
+  }
+};
+
+interface ChangeBookGenre {
+  id: string;
+  genre: BookGenre;
+}
+
+export const CHANGE_BOOK_GENRE_ACTION = async ({
+  id,
+  genre,
+}: ChangeBookGenre) => {
+  try {
+    const book = await db.book.findUnique({
+      where: { id },
+    });
+
+    if (!book)
+      return {
+        error: "Book not found",
+      };
+
+    await db.book.update({
+      where: { id },
+      data: {
+        genre: genre === BookGenre.NONE ? "" : genre,
+      },
+    });
+
+    revalidatePath("/dashboard/books");
+
+    return {
+      success: "Book genre changed.",
+    };
+  } catch (error) {
+    return {
+      error: "Failed to change book genre",
     };
   }
 };

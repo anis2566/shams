@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
     Carousel,
@@ -11,7 +13,6 @@ import {
 
 import { useGetDiscountBooks } from "../../query";
 import { BookCard, BookCardSkeleton } from "@/components/book-card";
-import Link from "next/link";
 
 export const Discount = () => {
     const { data: discountBooks, isLoading } = useGetDiscountBooks();

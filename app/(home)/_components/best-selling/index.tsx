@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
     Carousel,
@@ -9,18 +11,17 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel"
 
-import { useGetBookByPublication } from "../../query";
+import { useGetBestSellingBooks } from "../../query";
 import { BookCard, BookCardSkeleton } from "@/components/book-card";
-import Link from "next/link";
 
-export const ShamsPublicationBook = () => {
-    const { data: shamsPublicationBooks, isLoading } = useGetBookByPublication("6739bd3c8dab659ec37bb928");
+export const BestSelling = () => {
+    const { data: bestSellingBooks, isLoading } = useGetBestSellingBooks();
 
     return <div className="px-3 md:px-0 space-y-5">
         <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-600">Shams Publication Books</h2>
+            <h2 className="text-2xl font-bold text-gray-600">Best Selling</h2>
             <Button variant="outline" size="sm" asChild>
-                <Link href="/books?publication=6739bd3c8dab659ec37bb928">View All</Link>
+                <Link href="/books?sort=desc">View All</Link>
             </Button>
         </div>
 
@@ -39,7 +40,7 @@ export const ShamsPublicationBook = () => {
                             </CarouselItem>
                         ))
                     ) : (
-                        shamsPublicationBooks?.map((book) => (
+                        bestSellingBooks?.map((book) => (
                             <CarouselItem key={book.id} className="basis-1/2 md:basis-1/6">
                                 <BookCard book={book} />
                             </CarouselItem>

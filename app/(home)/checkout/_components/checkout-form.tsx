@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PaymentMethod } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -20,10 +21,17 @@ import { OrderSchema, OrderSchemaType } from "@/schema/order.schema";
 import { useCreateOrderMutation } from "../mutation";
 
 export const CheckoutForm = () => {
+    const router = useRouter()
     const [districts, setDistricts] = useState<{ district: string }[]>([])
 
     const { cart } = useCart();
     const { mutate, isPending } = useCreateOrderMutation()
+
+    useEffect(() => {
+        if (cart.length === 0) {
+            router.push("/cart")
+        }
+    }, [cart])
 
     useEffect(() => {
         const fetchDistricts = async () => {
@@ -288,7 +296,7 @@ export const CheckoutForm = () => {
                             </div>
                             <div className="flex justify-between p-2">
                                 <p>Total</p>
-                                <p>৳{ (totalPrice + form.watch("shippingCharge")).toFixed(2) }</p>
+                                <p>৳{(totalPrice + form.watch("shippingCharge")).toFixed(2)}</p>
                             </div>
                             <div className="flex items-center gap-x-2 mt-4">
                                 <Input type="text" placeholder="Enter your coupon code" disabled={isPending} />
@@ -298,7 +306,7 @@ export const CheckoutForm = () => {
                     </Card>
                     <LoadingButton
                         isLoading={isPending}
-                        title={`Confirm Order ৳${ (totalPrice + form.watch("shippingCharge")).toFixed(2) }`}
+                        title={`Confirm Order ৳${(totalPrice + form.watch("shippingCharge")).toFixed(2)}`}
                         loadingTitle="Processing..."
                         onClick={() => { }}
                         type="submit"

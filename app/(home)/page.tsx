@@ -10,6 +10,7 @@ import { Newsletter } from "./_components/newsletter"
 import { ShamsPublicationBook } from "./_components/shams-publication-book"
 import { BestSellers } from "./_components/best-sellers"
 import { ModeToggle } from "@/components/mode-toggle"
+import { BestSelling } from "./_components/best-selling"
 
 const Home = () => {
   return (
@@ -24,7 +25,8 @@ const Home = () => {
       <Discount />
       <FeatureCategory />
       <RecentlyAdded />
-      <BestSellers />
+      {/* <BestSellers /> */}
+      <BestSelling />
       <Newsletter />
     </div>
   )
