@@ -150,7 +150,7 @@ export const GET_DISCOUNT_BOOKS = async () => {
     where: {
       status: BookStatus.Published,
       discountPercent: {
-        not: null || 0,
+        not: null,
       },
     },
     include: {
