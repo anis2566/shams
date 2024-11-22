@@ -5,7 +5,7 @@ const requiredString = z.string().min(1, { message: "required" });
 
 export const AuthorSchema = z.object({
   name: requiredString.min(4, { message: "min 4 characters" }),
-  email: z.string().email().optional(),
+  email: z.string().optional(),
   imageUrl: z.string().optional(),
   bio: requiredString.min(10, { message: "min 10 characters" }),
   status: z

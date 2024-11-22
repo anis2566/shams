@@ -23,11 +23,7 @@ export const BookSchema = z.object({
     .refine((val) => Object.values(BookStatus).includes(val), {
       message: "required",
     }),
-  language: z
-    .nativeEnum(Language)
-    .refine((val) => Object.values(Language).includes(val), {
-      message: "required",
-    }),
+  language: z.array(z.string().min(1)).nonempty("required"),
   demoPdfUrl: z.string().optional(),
 });
 

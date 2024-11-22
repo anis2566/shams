@@ -246,7 +246,7 @@ model Publication {
 
   books Book[]
 
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt
 }
 
@@ -270,7 +270,7 @@ model Book {
   totalSold     Int @default(0)
   stock         Int @default(0)
   demoPdfUrl    String?
-  language      Language @default(Bangla)
+  language      String[] @default([])
   genre         String?
 
   authorId String   @db.ObjectId

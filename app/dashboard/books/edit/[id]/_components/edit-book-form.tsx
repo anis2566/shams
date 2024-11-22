@@ -22,12 +22,13 @@ import {
 } from "@/components/ui/popover"
 
 import { Editor } from "@/components/editor";
-import { EDITIONS } from "@/constant";
+import { EDITIONS, LANGAUAGE } from "@/constant";
 import { BookSchema, BookSchemaType } from "@/schema/book.schema";
 import { UploadButton } from "@/lib/uploadthing";
 import { LoadingButton } from "@/components/loading-button";
 import { useEditBookMutation } from "../../../mutation";
 import { useGetAuthorsForBooksQuery, useGetCategoriesForBooksQuery, useGetPublishersForBooksQuery, useGetSubCategoriesForBooksQuery } from "../../../query";
+import { MultiSelect } from "@/components/ui/multi-select";
 
 interface BookWithRelations extends Book {
     author: Author;
@@ -165,22 +166,20 @@ export const EditBookForm = ({ book }: Props) => {
                                 name="language"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Language</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isPending}>
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select language" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {
-                                                    Object.values(Language).map((language) => (
-                                                        <SelectItem key={language} value={language}>{language}</SelectItem>
-                                                    ))
-                                                }
-                                            </SelectContent>
-                                        </Select>
-                                        <FormMessage />
+                                    <FormLabel>Language</FormLabel>
+                                    <FormControl>
+                                        <MultiSelect
+                                            options={Object.values(LANGAUAGE).map((v, i) => ({value: v, label: v}))}
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                            placeholder="Select language"
+                                            variant="inverted"
+                                            animation={2}
+                                            maxCount={3}
+                                            disabled={isPending}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
                                     </FormItem>
                                 )}
                             />

@@ -25,7 +25,7 @@ export const MobileHeader = async () => {
                         </Button>
                     </Drawer>
                     <Link href="/">
-                        <Image src="/logo.svg" alt="logo" width={30} height={30} />
+                        <Image src="/logo.png" alt="logo" width={30} height={30} />
                     </Link>
                 </div>
                 <div className="flex items-center gap-x-2">

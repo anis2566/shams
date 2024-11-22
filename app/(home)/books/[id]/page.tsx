@@ -23,9 +23,10 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-    title: "BookGhor | Book Details",
-    description: "Book details.",
+    title: "Shams Publication | Book Details",
+    description: "Boook Details Page",
 };
+
 
 const Book = async ({ params }: Props) => {
     const book = await db.book.findUnique({

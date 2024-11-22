@@ -10,6 +10,20 @@ import {
   LayoutDashboard,
 } from "lucide-react";
 
+export const LANGAUAGE = [
+  "Bangla",
+  "English",
+  "Arabic",
+  "Hindi",
+  "Urdu",
+  "French",
+  "German",
+  "Spanish",
+  "Portuguese",
+  "Italian",
+  "Dutch",
+];
+
 export const EDITIONS: string[] = [
   "1st",
   "2nd",

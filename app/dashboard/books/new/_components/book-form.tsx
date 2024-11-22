@@ -6,7 +6,7 @@ import Image from "next/image";
 import { CheckIcon, Loader, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
-import { BookStatus, Language } from "@prisma/client";
+import { BookStatus } from "@prisma/client";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -21,13 +21,14 @@ import {
 } from "@/components/ui/popover"
 
 import { Editor } from "@/components/editor";
-import { EDITIONS } from "@/constant";
+import { EDITIONS, LANGAUAGE } from "@/constant";
 import { useCreateBookMutation } from "../../mutation";
 import { BookSchema, BookSchemaType } from "@/schema/book.schema";
 import { UploadButton } from "@/lib/uploadthing";
 import { useGetAuthorsForBooksQuery, useGetCategoriesForBooksQuery, useGetPublishersForBooksQuery, useGetSubCategoriesForBooksQuery } from "../../query";
 import { LoadingButton } from "@/components/loading-button";
 import Link from "next/link";
+import { MultiSelect } from "@/components/ui/multi-select";
 
 export const BookForm = () => {
     const [authorSearch, setAuthorSearch] = useState<string>("");
@@ -147,25 +148,24 @@ export const BookForm = () => {
                                 name="language"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Language</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isPending}>
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select language" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {
-                                                    Object.values(Language).map((language) => (
-                                                        <SelectItem key={language} value={language}>{language}</SelectItem>
-                                                    ))
-                                                }
-                                            </SelectContent>
-                                        </Select>
-                                        <FormMessage />
+                                    <FormLabel>Language</FormLabel>
+                                    <FormControl>
+                                        <MultiSelect
+                                            options={Object.values(LANGAUAGE).map((v, i) => ({value: v, label: v}))}
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                            placeholder="Select language"
+                                            variant="inverted"
+                                            animation={2}
+                                            maxCount={3}
+                                            disabled={isPending}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
                                     </FormItem>
                                 )}
                             />
+
                         </CardContent>
                     </Card>
                     <Card>
