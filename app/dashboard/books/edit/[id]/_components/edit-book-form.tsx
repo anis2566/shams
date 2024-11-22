@@ -6,7 +6,7 @@ import Image from "next/image";
 import { CheckIcon, Loader, Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { Author, Book, BookStatus, Category, Language, Publication, SubCategory } from "@prisma/client";
+import { Author, Book, BookStatus, Category, Publication, SubCategory } from "@prisma/client";
 import Link from "next/link";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
