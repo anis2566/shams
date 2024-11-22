@@ -233,7 +233,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
               }
             : {}),
           ...(language && {
-            language: language as Language,
+            language: {
+              hasSome: [language]
+            },
           }),
           ...(inStock && {
             stock: {
