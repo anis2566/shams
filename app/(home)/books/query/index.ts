@@ -3,7 +3,6 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import kyInstance from "@/lib/ky";
 import { BookPage, CategoryPage, QuestionPage, ReviewPage } from "@/lib/types";
 import { GET_SIMILAR_CATEGORY_BOOKS, GET_TOP_REVIEWS } from "../action";
-import { Language } from "@prisma/client";
 
 export const useGetBookReviews = ({ bookId }: { bookId: string }) => {
   const { data, fetchNextPage, hasNextPage, isFetching, status } =
@@ -111,7 +110,7 @@ interface GetBooksProps {
   maxPrice: string | null;
   minDiscount: string | null;
   maxDiscount: string | null;
-  language: Language | null;
+  language: string | null;
   inStock: string | null;
 }
 
