@@ -1,6 +1,7 @@
 import { Book, Author, Publication } from "@prisma/client"
 
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
 
 interface BookWithRelations extends Book {
     author: Author
@@ -41,7 +42,13 @@ const Specification: React.FC<SpecificationProps> = ({ book }) => {
                 </TableRow>
                 <TableRow>
                     <TableCell>Language</TableCell>
-                    <TableCell>Bangla</TableCell>
+                    <TableCell>
+                        {
+                            book.language.map((v, i) => (
+                                <Badge key={i} variant="secondary">{v}</Badge>
+                            ))
+                        }
+                    </TableCell>
                 </TableRow>
             </TableBody>
         </Table>

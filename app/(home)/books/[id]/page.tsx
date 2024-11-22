@@ -14,7 +14,7 @@ import { Reviews } from "./_components/reveiws";
 import { DeliveryBanner } from "@/components/delivery-banner";
 import { SimilarCategoryBooks } from "./_components/similar-category-books";
 import { QuestionAnswer } from "./_components/question-answer";
-import { BookStatus, Language } from "@prisma/client";
+import { BookStatus } from "@prisma/client";
 
 interface Props {
     params: {
