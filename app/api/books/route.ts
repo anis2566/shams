@@ -1,4 +1,4 @@
-import { BookStatus, Language } from "@prisma/client";
+import { BookStatus } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { transliterate as tr } from "transliteration";
 
@@ -36,8 +36,6 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const isBangla = (text: string) => /[\u0980-\u09FF]/.test(text);
     let isBanglaQuery = isBangla(query || "");
     let banglaQuery = isBanglaQuery ? tr(query || "") : null;
-
-    console.log(minDiscount, maxDiscount);
 
     const pageSize = 12;
 
@@ -127,7 +125,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
               }
             : {}),
           ...(language && {
-            language: language as Language,
+            language: {
+              hasSome: [language],
+            },
           }),
           ...(inStock && {
             stock: {

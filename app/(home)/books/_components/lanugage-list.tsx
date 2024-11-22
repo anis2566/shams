@@ -1,14 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { Language } from "@prisma/client"
 import { useSearchParams, useRouter } from "next/navigation"
 import queryString from "query-string"
 
 import { Input } from "@/components/ui/input"
 
 interface LanguageListProps {
-    languages: Language[]
+    languages: string[]
 }
 
 export const LanguageList = ({ languages }: LanguageListProps) => {
@@ -21,13 +20,11 @@ export const LanguageList = ({ languages }: LanguageListProps) => {
         index === self.findIndex((t) => t === language)
     ) : []
 
-    console.log(uniqueLanguages)
-
     const filteredLanguages = uniqueLanguages.filter((language) =>
         language.toLowerCase().includes(search.toLowerCase())
     )
 
-    const handleClick = (language: Language) => {
+    const handleClick = (language: string) => {
         const params = Object.fromEntries(searchParams.entries())
 
         const url = queryString.stringifyUrl({

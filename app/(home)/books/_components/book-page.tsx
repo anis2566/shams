@@ -7,7 +7,6 @@ import { BookCard, BookCardSkeleton } from "@/components/book-card";
 import InfiniteScrollContainer from "@/components/infinite-scroll-container";
 import { useGetBooks } from "../query";
 import { Filter } from "./filter";
-import { Language } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { FilterDrawer } from "./filter-drawer";
 import { SortDrawer } from "./sort-drawer";
@@ -28,7 +27,7 @@ export const BookPage = () => {
     const language = searchParams.get("language") || null
     const inStock = searchParams.get("inStock") || null
 
-    const { books, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, total } = useGetBooks({ author, category, subcategory, publication, discount, query, sort, minPrice, maxPrice, language: language as Language | null, inStock, minDiscount, maxDiscount });
+    const { books, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, total } = useGetBooks({ author, category, subcategory, publication, discount, query, sort, minPrice, maxPrice, language: language, inStock, minDiscount, maxDiscount });
 
     return (
         <div className="px-0 mt-4 relative">
