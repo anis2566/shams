@@ -36,7 +36,7 @@ interface Props {
         category?: string;
         author?: string;
         publisher?: string;
-        seller?: string;
+        trending?: string;
         sort?: string;
         page?: string;
         perPage?: string;
@@ -45,7 +45,7 @@ interface Props {
 }
 
 const Books = async ({ searchParams }: Props) => {
-    const { name, sort, page = "1", perPage = "5", status, category, author, publisher, seller } = searchParams;
+    const { name, sort, page = "1", perPage = "5", status, category, author, publisher, trending } = searchParams;
 
     const itemsPerPage = parseInt(perPage, 10);
     const currentPage = parseInt(page, 10);
@@ -57,7 +57,7 @@ const Books = async ({ searchParams }: Props) => {
                 ...(category && { category: { name: { contains: category, mode: "insensitive" } } }),
                 ...(author && { author: { name: { contains: author, mode: "insensitive" } } }),
                 ...(publisher && { publication: { name: { contains: publisher, mode: "insensitive" } } }),
-                ...(seller && { seller: { name: { contains: seller, mode: "insensitive" } } }),
+                ...(trending && {grenre: {contains: trending, mode: "insensitive"}}),
                 ...(status && { status: status }),
             },
             include: {
@@ -78,7 +78,7 @@ const Books = async ({ searchParams }: Props) => {
                 ...(category && { category: { name: { contains: category, mode: "insensitive" } } }),
                 ...(author && { author: { name: { contains: author, mode: "insensitive" } } }),
                 ...(publisher && { publication: { name: { contains: publisher, mode: "insensitive" } } }),
-                ...(seller && { seller: { name: { contains: seller, mode: "insensitive" } } }),
+                ...(trending && {grenre: {contains: trending, mode: "insensitive"}}),
                 ...(status && { status: status }),
             },
         }),
