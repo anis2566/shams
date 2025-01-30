@@ -3,7 +3,6 @@ import { Separator } from "@/components/ui/separator"
 import { Logo } from "@/components/logo"
 import { Search } from "./search"
 import { SignInButton } from "./sign-in-button"
-import { SellerButton } from "./seller-button"
 import { CartButton } from "./cart-button"
 import { WishlistButton } from "./wishlist-button"
 import { auth } from "@/auth"
@@ -19,7 +18,6 @@ export const Header = async () => {
                 <Logo callbackUrl="/" />
                 <Search className="flex" />
 
-                <SellerButton className="flex" />
                 <Separator className="hidden md:block h-6" orientation="vertical" />
                 <div className="flex items-center gap-x-2">
                     <WishlistButton />

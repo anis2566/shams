@@ -112,6 +112,7 @@ interface GetBooksProps {
   maxDiscount: string | null;
   language: string | null;
   inStock: string | null;
+  trending: string | null;
 }
 
 export const useGetBooks = ({
@@ -128,6 +129,7 @@ export const useGetBooks = ({
   maxDiscount,
   language,
   inStock,
+  trending,
 }: GetBooksProps) => {
   const {
     data,
@@ -152,6 +154,7 @@ export const useGetBooks = ({
       maxDiscount,
       language,
       inStock,
+      trending,
     ],
     queryFn: ({ pageParam }) =>
       kyInstance
@@ -171,6 +174,7 @@ export const useGetBooks = ({
             ...(maxDiscount && { maxDiscount }),
             ...(language && { language }),
             ...(inStock && { inStock }),
+            ...(trending && { trending: "true" }),
           },
         })
         .json<BookPage>(),

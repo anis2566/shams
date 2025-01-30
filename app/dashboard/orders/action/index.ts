@@ -4,6 +4,7 @@ import { OrderStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/prisma";
+import { GET_ROLE } from "@/services/user.service";
 
 type UpdateOrderStatusProps = {
   id: string;
@@ -14,6 +15,14 @@ export const UPDATE_ORDER_STATUS_ACTION = async ({
   id,
   status,
 }: UpdateOrderStatusProps) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const order = await db.order.findUnique({
       where: {
@@ -107,6 +116,14 @@ export const UPDATE_ORDER_STATUS_ACTION = async ({
 };
 
 export const DELETE_ORDER_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const order = await db.order.findUnique({
       where: { id },

@@ -21,7 +21,7 @@ export const CREATE_ORDER_ACTION = async (values: OrderSchemaType) => {
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
-  const shippingCharge = data.city === "Dhaka" ? 60 : 100;
+  const shippingCharge = data.city === "Dhaka" ? 80 : 150;
   const totalPaidAmount = totalPrice + shippingCharge;
 
   const { userId } = await GET_USER();

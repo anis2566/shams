@@ -2,6 +2,7 @@
 import { Order, OrderItem, Book, User, PaymentStatus, OrderStatus } from "@prisma/client";
 import { Eye, RefreshCcw, MoreVerticalIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { format } from "date-fns";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -41,6 +42,7 @@ export const OrderList = ({ orders }: Props) => {
                         <TableHead>User</TableHead>
                         <TableHead>Recepient</TableHead>
                         <TableHead>Phone</TableHead>
+                        <TableHead>Date</TableHead>
                         <TableHead>No of Item</TableHead>
                         <TableHead>Subtotal</TableHead>
                         <TableHead>Shipping</TableHead>
@@ -72,6 +74,7 @@ export const OrderList = ({ orders }: Props) => {
                             </TableCell>
                             <TableCell>{order.name}</TableCell>
                             <TableCell>{order.phone}</TableCell>
+                            <TableCell>{format(order.createdAt, "dd MMM yyyy")}</TableCell>
                             <TableCell>{order.orderItems.length}</TableCell>
                             <TableCell>৳{order.totalPrice}</TableCell>
                             <TableCell>৳{order.shippingCharge}</TableCell>

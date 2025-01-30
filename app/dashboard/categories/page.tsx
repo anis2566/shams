@@ -77,8 +77,6 @@ const Categories = async ({ searchParams }: Props) => {
         }),
     ]);
 
-    const totalPages = Math.ceil(totalCategories / itemsPerPage);
-
     return (
         <ContentLayout title="Category">
             <Breadcrumb>
@@ -103,7 +101,7 @@ const Categories = async ({ searchParams }: Props) => {
                 <CardContent className="space-y-4">
                     <Header />
                     <CategoryList categories={categories} />
-                    <CustomPagination totalPages={totalPages} />
+                    <CustomPagination totalCount={totalCategories} />
                 </CardContent>
             </Card>
         </ContentLayout>

@@ -70,3 +70,24 @@ export const GET_ADMIN = async () => {
     adminId: admin?.id || null,
   };
 };
+
+
+export const GET_ROLE = async () => {
+  const session = await auth();
+
+  if (!session?.userId) redirect("/auth/sign-in");
+
+  const user = await db.user.findUnique({
+    where: {
+      id: session.userId,
+    },
+  });
+
+  if (!user) throw new Error("User not found");
+
+  const isAdmin = user.role === Role.Admin
+  const isModerator = user.role === Role.Moderator
+  const isEditor = user.role === Role.Editor
+
+  return { isAdmin, isModerator, isEditor };
+};

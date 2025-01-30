@@ -15,7 +15,6 @@ import { useUpdateUserAccountMutation } from "../../mutation";
 import { LoadingButton } from "@/components/loading-button";
 
 const accountInfoSchema = z.object({
-    email: z.string().email().min(1, { message: "required" }),
     phone: z.string().min(11, { message: "Phone number must be 11 digits long" }).optional(),
 });
 
@@ -32,7 +31,6 @@ export const AccountForm = ({ user }: AccountFormProps) => {
     const form = useForm<z.infer<typeof accountInfoSchema>>({
         resolver: zodResolver(accountInfoSchema),
         defaultValues: {
-            email: user.email ?? "",
             phone: user.phone ?? "",
         }
     });
@@ -62,24 +60,10 @@ export const AccountForm = ({ user }: AccountFormProps) => {
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                         <FormField
                             control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} disabled={!isEditing || isPending} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        <FormField
-                            control={form.control}
                             name="phone"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Phone</FormLabel>
+                                    <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input {...field} disabled={!isEditing || isPending} />
                                     </FormControl>

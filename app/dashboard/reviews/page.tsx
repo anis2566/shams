@@ -20,8 +20,8 @@ import {
 import { ContentLayout } from "../_components/content-layout";
 import { ReviewList } from "./_components/reveiw-list";
 import { db } from "@/lib/prisma";
-import { CustomPagination } from "@/components/custom-pagination";
 import { Header } from "./_components/header";
+import { CustomPagination } from "@/components/custom-pagination";
 
 export const metadata: Metadata = {
     title: "Shams Publication | Reviews",
@@ -103,7 +103,7 @@ const Reviews = async ({ searchParams }: Props) => {
                 <CardContent className="space-y-4">
                     <Header />
                     <ReviewList reviews={reviews} />
-                    <CustomPagination totalPages={totalPages} />
+                    <CustomPagination totalCount={totalReviews} />
                 </CardContent>
             </Card>
         </ContentLayout>

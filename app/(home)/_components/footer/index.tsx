@@ -31,16 +31,8 @@ export const Footer = () => {
                         <Link href="/books?discount=true" className="opacity-60 hover:opacity-100">
                             Discount Books
                         </Link>
-                    </div>
-
-                    {/* Seller section */}
-                    <div className="flex flex-col gap-2">
-                        <h3 className="text-lg font-bold">Seller</h3>
-                        <Link href="/seller" className="opacity-60 hover:opacity-100">
-                            Dashboard
-                        </Link>
-                        <Link href="/seller/register" className="opacity-60 hover:opacity-100">
-                            Become a Seller
+                        <Link href="/books?publication=6739bd3c8dab659ec37bb928" className="opacity-60 hover:opacity-100">
+                            Shams Publication Books
                         </Link>
                     </div>
 
@@ -52,6 +44,13 @@ export const Footer = () => {
                         </Link>
                         <Link href="/contact" className="opacity-60 hover:opacity-100">
                             Contact Us
+                        </Link>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <h3 className="text-lg font-bold">About</h3>
+                        <Link href="/about" className="opacity-60 hover:opacity-100">
+                            About Us
                         </Link>
                     </div>
                 </div>

@@ -1,10 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { BannerStatus } from "@prisma/client";
 
 import { db } from "@/lib/prisma";
 import { BannerSchema, BannerSchemaType } from "@/schema/banner.schema";
-import { BannerStatus } from "@prisma/client";
+import { GET_ROLE } from "@/services/user.service";
 
 export const CREATE_BANNER_ACTION = async (values: BannerSchemaType) => {
   const { data, success } = BannerSchema.safeParse(values);
@@ -12,6 +13,14 @@ export const CREATE_BANNER_ACTION = async (values: BannerSchemaType) => {
   if (!success) {
     return {
       error: "Invalid input values",
+    };
+  }
+
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
     };
   }
 
@@ -35,6 +44,14 @@ export const CREATE_BANNER_ACTION = async (values: BannerSchemaType) => {
 };
 
 export const DELETE_BANNER_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const banner = await db.banner.findUnique({
       where: { id },

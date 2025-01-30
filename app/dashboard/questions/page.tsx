@@ -20,8 +20,8 @@ import {
 import { ContentLayout } from "../_components/content-layout";
 import { db } from "@/lib/prisma";
 import { QuestionList } from "./_components/question-list";
-import { CustomPagination } from "@/components/custom-pagination";
 import { Header } from "./_components/header";
+import { CustomPagination } from "@/components/custom-pagination";
 
 export const metadata: Metadata = {
     title: "Shams Publication | Questions",
@@ -84,7 +84,7 @@ const Questions = async ({ searchParams }: Props) => {
                 <CardContent className="space-y-4">
                     <Header />
                     <QuestionList questions={questions} />
-                    <CustomPagination totalPages={totalPages} />
+                    <CustomPagination totalCount={totalQuestions} />
                 </CardContent>
             </Card>
         </ContentLayout>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, FilePenLine, Gift, LayoutGrid, LogOut, MessageCircle, ShoppingBag, User } from "lucide-react";
+import { FilePenLine, LogOut, MessageCircle, ShoppingBag, User } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
@@ -87,12 +87,6 @@ export function UserButton() {
                         <Link href="/user/questions" className="flex items-center">
                             <MessageCircle className="mr-3 h-4 w-4 text-muted-foreground" />
                             Questions
-                        </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="hover:cursor-pointer" asChild>
-                        <Link href="/user/points" className="flex items-center">
-                            <Gift className="mr-3 h-4 w-4 text-muted-foreground" />
-                            Points
                         </Link>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>

@@ -8,6 +8,7 @@ import {
   PublicationSchema,
   PublicationSchemaType,
 } from "@/schema/publication.schema";
+import { GET_ROLE } from "@/services/user.service";
 
 export const CREATE_PUBLICATION_ACTION = async (
   values: PublicationSchemaType,
@@ -17,6 +18,14 @@ export const CREATE_PUBLICATION_ACTION = async (
   if (!success) {
     return {
       error: "Invalid input values",
+    };
+  }
+
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
     };
   }
 
@@ -77,6 +86,14 @@ export const EDIT_PUBLICATION_ACTION = async ({
     };
   }
 
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const publication = await db.publication.findUnique({
       where: {
@@ -112,6 +129,14 @@ export const EDIT_PUBLICATION_ACTION = async ({
 };
 
 export const DELETE_PUBLICATION_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const publication = await db.publication.findUnique({
       where: {

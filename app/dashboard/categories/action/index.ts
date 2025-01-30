@@ -10,6 +10,7 @@ import {
   SubCategorySchemaType,
 } from "@/schema/sub-category.schema";
 import { CategoryGenre } from "@/constant";
+import { GET_ROLE } from "@/services/user.service";
 
 export const CREATE_CATEGORY_ACTION = async (values: CategorySchemaType) => {
   const { data, success } = CategorySchema.safeParse(values);
@@ -17,6 +18,14 @@ export const CREATE_CATEGORY_ACTION = async (values: CategorySchemaType) => {
   if (!success) {
     return {
       error: "Invalid input values",
+    };
+  }
+
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
     };
   }
 
@@ -74,6 +83,14 @@ export const EDIT_CATEGORY_ACTION = async ({ id, values }: EditCategory) => {
     };
   }
 
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const category = await db.category.findUnique({
       where: {
@@ -117,6 +134,14 @@ export const UPDATE_CATEGORY_GENRE_ACTION = async ({
   id,
   genre,
 }: UpdateCategoryGenre) => {
+  const { isAdmin } = await GET_ROLE();
+
+  if (!isAdmin) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const category = await db.category.findUnique({
       where: { id },
@@ -146,6 +171,14 @@ export const UPDATE_CATEGORY_GENRE_ACTION = async ({
 };
 
 export const DELETE_CATEGORY_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const category = await db.category.findUnique({
       where: {
@@ -191,6 +224,14 @@ export const CREATE_SUB_CATEGORY_ACTION = async ({
   if (!success) {
     return {
       error: "Invalid input values",
+    };
+  }
+
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
     };
   }
 
@@ -253,6 +294,14 @@ export const EDIT_SUB_CATEGORY_ACTION = async ({
     };
   }
 
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const subCategory = await db.subCategory.findUnique({
       where: {
@@ -289,6 +338,14 @@ export const EDIT_SUB_CATEGORY_ACTION = async ({
 };
 
 export const DELETE_SUB_CATEGORY_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const subCategory = await db.subCategory.findUnique({
       where: {

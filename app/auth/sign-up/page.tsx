@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { SignUpForm } from "./_components/sign-up-form";
 
 export const metadata: Metadata = {
-  title: "App | Sign Up",
+  title: "Shams Publication | Sign Up",
   description: "Start up Project",
 };
 

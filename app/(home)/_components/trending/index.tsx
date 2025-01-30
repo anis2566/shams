@@ -1,5 +1,7 @@
 "use client"
 
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
     Carousel,
@@ -18,7 +20,9 @@ export const TrendingBooks = () => {
     return <div className="px-3 md:px-0 space-y-5">
         <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-gray-600">Trending</h2>
-            <Button variant="outline" size="sm">View All</Button>
+            <Button variant="outline" size="sm" asChild>
+                <Link href="/books?trending=true">View All</Link>
+            </Button>
         </div>
 
         <Carousel

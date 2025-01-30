@@ -5,17 +5,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PaymentMethod } from "@prisma/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Autoplay from "embla-carousel-autoplay"
+import Link from "next/link";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 
 import { LoadingButton } from "@/components/loading-button";
 import { useCart } from "@/hooks/use-cart";
@@ -24,17 +24,10 @@ import { useCreateOrderMutation } from "../mutation";
 import { cn } from "@/lib/utils";
 
 export const CheckoutForm = () => {
-    const router = useRouter()
     const [districts, setDistricts] = useState<{ district: string }[]>([])
 
     const { cart } = useCart();
     const { mutate, isPending } = useCreateOrderMutation()
-
-    useEffect(() => {
-        if (cart.length === 0) {
-            router.push("/cart")
-        }
-    }, [cart])
 
     useEffect(() => {
         const fetchDistricts = async () => {
@@ -82,6 +75,18 @@ export const CheckoutForm = () => {
     }
 
     const totalPrice = cart.reduce((acc, item) => acc + (item.quantity * item.price), 0);
+
+    if (cart.length === 0) {
+        return (
+            <div className="w-full min-h-[60vh] flex flex-col items-center justify-center gap-y-4">
+                <Image src="/empty-cart.png" alt="empty cart" width={200} height={200} />
+                <h1 className="text-2xl font-semibold text-muted-foreground">Your cart is empty!</h1>
+                <Link href="/">
+                    <Button>Continue shopping</Button>
+                </Link>
+            </div>
+        )
+    }
 
     return (
         <Form {...form}>
@@ -169,9 +174,9 @@ export const CheckoutForm = () => {
                                                 onValueChange={value => {
                                                     field.onChange(value)
                                                     if (value === "Dhaka") {
-                                                        form.setValue("shippingCharge", 60)
+                                                        form.setValue("shippingCharge", 80)
                                                     } else {
-                                                        form.setValue("shippingCharge", 100)
+                                                        form.setValue("shippingCharge", 150)
                                                     }
                                                 }}
                                                 defaultValue={field.value}
@@ -300,10 +305,6 @@ export const CheckoutForm = () => {
                             <div className="flex justify-between p-2">
                                 <p>Total</p>
                                 <p>৳{(totalPrice + form.watch("shippingCharge")).toFixed(2)}</p>
-                            </div>
-                            <div className="flex items-center gap-x-2 mt-4">
-                                <Input type="text" placeholder="Enter your coupon code" disabled={isPending} />
-                                <Button variant="secondary" disabled={isPending}>Apply</Button>
                             </div>
                         </CardContent>
                     </Card>

@@ -32,6 +32,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       : null;
     const language = searchParams.get("language") || null;
     const inStock = searchParams.get("inStock") || null;
+    const trending = searchParams.get("trending") || null;
 
     const isBangla = (text: string) => /[\u0980-\u09FF]/.test(text);
     let isBanglaQuery = isBangla(query || "");
@@ -51,6 +52,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
               },
             },
           }),
+          ...(trending ? {
+            genre: {
+              equals: "Trending",
+            },
+          } : {}),
           ...(category && {
             categoryId: category,
           }),
@@ -81,48 +87,48 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
           }),
           ...(minPrice !== null &&
             maxPrice !== null && {
-              price: {
-                gte: minPrice,
-                lte: maxPrice,
-              },
-            }),
+            price: {
+              gte: minPrice,
+              lte: maxPrice,
+            },
+          }),
           ...(minPrice !== null &&
             maxPrice === null && {
-              price: {
-                gte: minPrice,
-              },
-            }),
+            price: {
+              gte: minPrice,
+            },
+          }),
           ...(maxPrice !== null &&
             minPrice === null && {
-              price: {
-                lte: maxPrice,
-              },
-            }),
+            price: {
+              lte: maxPrice,
+            },
+          }),
           ...(minDiscount !== null &&
             maxDiscount !== null && {
-              discountPercent: {
-                gte: minDiscount,
-                lte: maxDiscount,
-              },
-            }),
+            discountPercent: {
+              gte: minDiscount,
+              lte: maxDiscount,
+            },
+          }),
           ...(minDiscount !== null &&
             maxDiscount === null && {
-              discountPercent: {
-                gte: minDiscount,
-              },
-            }),
+            discountPercent: {
+              gte: minDiscount,
+            },
+          }),
           ...(maxDiscount !== null &&
             minDiscount === null && {
-              discountPercent: {
-                lte: maxDiscount,
-              },
-            }),
+            discountPercent: {
+              lte: maxDiscount,
+            },
+          }),
           ...(sort === "discount_desc" || sort === "discount_asc"
             ? {
-                discountPercent: {
-                  not: null,
-                },
-              }
+              discountPercent: {
+                not: null,
+              },
+            }
             : {}),
           ...(language && {
             language: {
@@ -189,48 +195,48 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
           }),
           ...(minPrice !== null &&
             maxPrice !== null && {
-              price: {
-                gte: minPrice,
-                lte: maxPrice,
-              },
-            }),
+            price: {
+              gte: minPrice,
+              lte: maxPrice,
+            },
+          }),
           ...(minPrice !== null &&
             maxPrice === null && {
-              price: {
-                gte: minPrice,
-              },
-            }),
+            price: {
+              gte: minPrice,
+            },
+          }),
           ...(maxPrice !== null &&
             minPrice === null && {
-              price: {
-                lte: maxPrice,
-              },
-            }),
+            price: {
+              lte: maxPrice,
+            },
+          }),
           ...(minDiscount !== null &&
             maxDiscount !== null && {
-              discountPercent: {
-                gte: minDiscount,
-                lte: maxDiscount,
-              },
-            }),
+            discountPercent: {
+              gte: minDiscount,
+              lte: maxDiscount,
+            },
+          }),
           ...(minDiscount !== null &&
             maxDiscount === null && {
-              discountPercent: {
-                gte: minDiscount,
-              },
-            }),
+            discountPercent: {
+              gte: minDiscount,
+            },
+          }),
           ...(maxDiscount !== null &&
             minDiscount === null && {
-              discountPercent: {
-                lte: maxDiscount,
-              },
-            }),
+            discountPercent: {
+              lte: maxDiscount,
+            },
+          }),
           ...(sort === "discount_desc" || sort === "discount_asc"
             ? {
-                discountPercent: {
-                  not: null,
-                },
-              }
+              discountPercent: {
+                not: null,
+              },
+            }
             : {}),
           ...(language && {
             language: {

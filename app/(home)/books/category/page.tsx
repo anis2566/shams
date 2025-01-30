@@ -66,8 +66,6 @@ const Category = async ({ searchParams }: Props) => {
         })
     ])
 
-    const totalPages = Math.ceil(totalCategories / perPageNumber)
-
     return (
         <div className='px-3 md:px-0 mt-28 md:mt-4 space-y-10'>
             <PopularCategory categories={popularCategories} />
@@ -88,7 +86,7 @@ const Category = async ({ searchParams }: Props) => {
                         ))
                     }
                 </div>
-                <CustomPagination totalPages={totalPages} />
+                <CustomPagination totalCount={totalCategories} />
             </div>
         </div>
     )

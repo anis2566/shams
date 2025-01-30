@@ -1,6 +1,7 @@
 import { EllipsisVertical, Eye } from "lucide-react";
 import Link from "next/link";
 import { Book, Order, OrderStatus, PaymentStatus, OrderItem } from "@prisma/client";
+import { format } from "date-fns";
 
 import { TableHeader } from "@/components/ui/table";
 import { Table, TableHead, TableBody, TableRow, TableCell } from "@/components/ui/table";
@@ -23,6 +24,7 @@ export const OrderList = ({ orders }: { orders: OrderWithRelations[] }) => {
                 <TableRow>
                     <TableHead>Items</TableHead>
                     <TableHead>Total</TableHead>
+                    <TableHead>Date</TableHead>
                     <TableHead>Payment Method</TableHead>
                     <TableHead>Payment Status</TableHead>
                     <TableHead>Order Status</TableHead>
@@ -43,6 +45,7 @@ export const OrderList = ({ orders }: { orders: OrderWithRelations[] }) => {
                                 }
                             </TableCell>
                             <TableCell>৳{order.totalPaidAmount}</TableCell>
+                            <TableCell>{format(order.createdAt, "dd MMM yyyy")}</TableCell>
                             <TableCell>
                                 <Badge variant="secondary">{order.paymentMethod}</Badge>
                             </TableCell>

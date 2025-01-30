@@ -149,7 +149,7 @@ export const CartPage = () => {
                         </div>
                         <div className="flex justify-between border-b p-2">
                             <p>Shipping <span className="text-xs text-muted-foreground">(changeable)</span></p>
-                            <p>৳100</p>
+                            <p>৳150</p>
                         </div>
                         <div className="flex justify-between border-b p-2">
                             <p>Total</p>

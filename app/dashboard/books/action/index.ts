@@ -7,6 +7,7 @@ import { db } from "@/lib/prisma";
 import { BookSchema, BookSchemaType } from "@/schema/book.schema";
 import { BookStatus } from "@prisma/client";
 import { BookGenre } from "@/constant";
+import { GET_ROLE } from "@/services/user.service";
 
 export const CREATE_BOOK_ACTION = async (values: BookSchemaType) => {
   const { data, success } = BookSchema.safeParse(values);
@@ -15,6 +16,14 @@ export const CREATE_BOOK_ACTION = async (values: BookSchemaType) => {
     return {
       error: "Invalid input values",
     };
+
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
 
   try {
     const book = await db.book.findFirst({
@@ -75,6 +84,14 @@ export const EDIT_BOOK_ACTION = async ({ id, values }: EditBook) => {
       error: "Invalid input values",
     };
 
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const book = await db.book.findUnique({
       where: {
@@ -110,6 +127,14 @@ export const EDIT_BOOK_ACTION = async ({ id, values }: EditBook) => {
 };
 
 export const DELETE_BOOK_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const book = await db.book.findUnique({
       where: {
@@ -253,6 +278,14 @@ export const CHANGE_BOOK_STATUS_ACTION = async ({
   id,
   status,
 }: ChangeBookStatus) => {
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const book = await db.book.findUnique({
       where: { id },
@@ -289,6 +322,14 @@ export const CHANGE_BOOK_GENRE_ACTION = async ({
   id,
   genre,
 }: ChangeBookGenre) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const book = await db.book.findUnique({
       where: { id },

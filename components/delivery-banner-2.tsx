@@ -1,4 +1,4 @@
-import { Coins, CornerDownLeft } from "lucide-react"
+import { CornerDownLeft } from "lucide-react"
 import Image from "next/image"
 
 export const DeliveryBanner2 = () => {
@@ -9,12 +9,12 @@ export const DeliveryBanner2 = () => {
                 <Image src="/cod.jpg" alt="delivery" width={24} height={24} />
             </div>
             <div className="w-full border border-primary rounded-md p-3 py-4 flex items-center justify-center gap-x-3">
-                <p className="text-base font-semibold text-muted-foreground">7 Days Return</p>
-                <CornerDownLeft className="w-6 h-6 text-muted-foreground" />
+                <p className="text-base font-semibold text-muted-foreground">সম্পূর্ণ ক্যাশ অন ডেলিভারি</p>
+                <Image src="/cod.jpg" alt="delivery" width={24} height={24} />
             </div>
             <div className="w-full border border-primary rounded-md p-3 py-4 flex items-center justify-center gap-x-3">
-                <p className="text-base font-semibold text-muted-foreground">পণ্য কিনে পয়েন্টস জিতুন</p>
-                <Coins className="w-6 h-6 text-muted-foreground" />
+                <p className="text-base font-semibold text-muted-foreground">7 Days Happy Return</p>
+                <CornerDownLeft className="w-6 h-6 text-muted-foreground" />
             </div>
         </div>
     )

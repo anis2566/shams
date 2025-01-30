@@ -72,7 +72,7 @@ export function UserNav() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem className="hover:cursor-pointer" asChild>
-            <Link href="/profile" className="flex items-center">
+            <Link href="/dashboard/profile" className="flex items-center">
               <User className="mr-3 h-4 w-4 text-muted-foreground" />
               Profile
             </Link>

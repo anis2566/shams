@@ -20,7 +20,7 @@ import {
 
 import { ContentLayout } from "../_components/content-layout";
 import { db } from "@/lib/prisma";
-import { CustomPagination } from "@/components/custom-pagination-2";
+import { CustomPagination } from "@/components/custom-pagination";
 import { BookList } from "./_components/book-list";
 import { Header } from "./_components/header";
 import { BookOpen } from "lucide-react";
@@ -94,8 +94,6 @@ const Books = async ({ searchParams }: Props) => {
             },
         }),
     ]);
-
-    const totalPages = Math.ceil(totalBooks / itemsPerPage);
 
     return (
         <ContentLayout title="Books">

@@ -16,8 +16,10 @@ export default async function middleware(request: NextRequest) {
   const isSellerRoute = request.nextUrl.pathname.startsWith("/seller");
   const isAdminRoute = request.nextUrl.pathname.startsWith("/dashboard");
 
-  const isSeller = session?.role === Role.Seller;
-  const isAdmin = session?.role === Role.Admin;
+  const isAdmin =
+    session?.role === Role.Admin ||
+    session?.role === Role.Moderator ||
+    session?.role === Role.Editor;
 
   if (!session && isProtected) {
     const signInUrl = new URL("/auth/sign-in", request.nextUrl);
@@ -25,14 +27,6 @@ export default async function middleware(request: NextRequest) {
 
     if (request.nextUrl.pathname !== "/auth/sign-in") {
       return NextResponse.redirect(signInUrl);
-    }
-  }
-
-  if (isSellerRoute && !isSeller) {
-    const applyUrl = new URL("/seller/register", request.nextUrl);
-
-    if (request.nextUrl.pathname !== "/seller/register") {
-      return NextResponse.redirect(applyUrl);
     }
   }
 

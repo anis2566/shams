@@ -86,8 +86,6 @@ const SubSubCategory = async ({ params: { id, subId }, searchParams }: Props) =>
         })
     ])
 
-    const totalPages = Math.ceil(totalBooks / itemsPerPage);
-
     return (
         <ContentLayout title="Category">
             <Breadcrumb>
@@ -124,7 +122,7 @@ const SubSubCategory = async ({ params: { id, subId }, searchParams }: Props) =>
                 <CardContent className="space-y-4">
                     <Header />
                     <BookList books={books} />
-                    <CustomPagination totalPages={totalPages} />
+                    <CustomPagination totalCount={totalBooks} />
                 </CardContent>
             </Card>
         </ContentLayout>

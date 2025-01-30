@@ -56,8 +56,6 @@ const Orders = async ({ searchParams }: Props) => {
         }),
     ]);
 
-    const totalPages = Math.ceil(totalOrders / itemsPerPage);
-
     return (
         <Card>
             <CardHeader>
@@ -67,7 +65,7 @@ const Orders = async ({ searchParams }: Props) => {
             <CardContent className="space-y-4 relative pb-20 md:pb-0">
                 <Header />
                 <OrderList orders={orders} />
-                <CustomPagination totalPages={totalPages} />
+                <CustomPagination totalCount={totalOrders} />
             </CardContent>
         </Card>
     )

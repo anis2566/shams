@@ -54,13 +54,11 @@ export const UPDATE_USER_INFO_ACTION = async ({
 
 type UpdateUserAccountActionProps = {
   id: string;
-  email: string;
   phone?: string;
 };
 
 export const UPDATE_USER_ACCOUNT_ACTION = async ({
   id,
-  email,
   phone,
 }: UpdateUserAccountActionProps) => {
   try {
@@ -76,7 +74,7 @@ export const UPDATE_USER_ACCOUNT_ACTION = async ({
 
     await db.user.update({
       where: { id },
-      data: { email, phone },
+      data: { phone },
     });
 
     revalidatePath("/user/profile");

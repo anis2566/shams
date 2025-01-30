@@ -73,8 +73,6 @@ const Reviews = async ({ searchParams }: Props) => {
         }),
     ]);
 
-    const totalPages = Math.ceil(totalReviews / perPage);
-
     return (
         <Card>
             <CardHeader>
@@ -92,7 +90,7 @@ const Reviews = async ({ searchParams }: Props) => {
                     </TabsContent>
                     <TabsContent value="reviewed">
                         <ReviewList reviews={reviews} />
-                        <CustomPagination totalPages={totalPages} />
+                        <CustomPagination totalCount={totalReviews} />
                     </TabsContent>
                 </Tabs>
             </CardContent>

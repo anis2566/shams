@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { SignInForm } from "./_components/sign-in-form";
 
 export const metadata: Metadata = {
-  title: "App | Sign In",
+  title: "Shams Publication | Sign In",
   description: "Start up Project",
 };
 

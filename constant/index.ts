@@ -84,11 +84,6 @@ export const userSidebarNavs: UserSidebarNavs[] = [
     href: "/user/questions",
     icon: MessageCircle,
   },
-  {
-    label: "Points",
-    href: "/user/points",
-    icon: Sparkles,
-  },
 ];
 
 type SellerSidebarNavs = {

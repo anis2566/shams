@@ -10,7 +10,8 @@ generator client {
 enum Role {
   User
   Admin
-  Seller
+  Moderator
+  Editor
 }
 
 enum AuthorStatus {

@@ -66,8 +66,6 @@ const Authors = async ({ searchParams }: Props) => {
         })
     ])
 
-    const totalPages = Math.ceil(totalAuthors / perPageNumber)
-
     return (
         <div className='px-3 md:px-0 mt-28 md:mt-4 space-y-10'>
             <PopularAuthors authors={popularAuthors} />
@@ -88,7 +86,7 @@ const Authors = async ({ searchParams }: Props) => {
                         ))
                     }
                 </div>
-                <CustomPagination totalPages={totalPages} />
+                <CustomPagination totalCount={totalAuthors} />
             </div>
         </div>
     )

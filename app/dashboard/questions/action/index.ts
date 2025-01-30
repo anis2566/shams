@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/lib/prisma";
-import { GET_USER } from "@/services/user.service";
+import { GET_ROLE, GET_USER } from "@/services/user.service";
 
 type ReplyQuestionAction = {
   id: string;
@@ -15,6 +15,13 @@ export const REPLY_QUESTION_ACTION = async ({
   answer,
 }: ReplyQuestionAction) => {
   const { userId } = await GET_USER();
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
 
   try {
     const question = await db.question.findUnique({

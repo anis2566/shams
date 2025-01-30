@@ -12,9 +12,8 @@ import {
   Book,
   CalendarArrowUp,
   GalleryVertical,
-  Users,
-  Radio,
   UserCheck,
+  Users,
 } from "lucide-react";
 
 type Submenu = {
@@ -178,33 +177,14 @@ export function getAdminMenuList(pathname: string): Group[] {
       ],
     },
     {
-      groupLabel: "Seller",
+      groupLabel: "Users",
       menus: [
         {
-          href: "",
-          label: "Seller",
-          active: pathname === "/admin/seller",
+          href: "/dashboard/users",
+          label: "Users",
+          active: pathname.includes("/dashboard/users"),
           icon: Users,
-          submenus: [
-            {
-              href: "/dashboard/seller/new",
-              label: "New",
-              active: pathname === "/dashboard/seller/new",
-              icon: PlusCircle,
-            },
-            {
-              href: "/dashboard/seller/request",
-              label: "Request",
-              active: pathname === "/dashboard/seller/request",
-              icon: Radio,
-            },
-            {
-              href: "/dashboard/seller",
-              label: "List",
-              active: pathname === "/dashboard/seller",
-              icon: List,
-            },
-          ],
+          submenus: [],
         },
       ],
     },

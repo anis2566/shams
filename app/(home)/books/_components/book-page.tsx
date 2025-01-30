@@ -26,8 +26,9 @@ export const BookPage = () => {
     const maxDiscount = searchParams.get("maxDiscount") || null;
     const language = searchParams.get("language") || null
     const inStock = searchParams.get("inStock") || null
+    const trending = searchParams.get("trending") || null;
 
-    const { books, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, total } = useGetBooks({ author, category, subcategory, publication, discount, query, sort, minPrice, maxPrice, language: language, inStock, minDiscount, maxDiscount });
+    const { books, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, total } = useGetBooks({ author, category, subcategory, publication, discount, query, sort, minPrice, maxPrice, language: language, inStock, minDiscount, maxDiscount, trending });
 
     return (
         <div className="px-0 mt-4 relative">

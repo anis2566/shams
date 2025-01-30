@@ -66,8 +66,6 @@ const Publications = async ({ searchParams }: Props) => {
         })
     ])
 
-    const totalPages = Math.ceil(totalPublications / perPageNumber)
-
     return (
         <div className='px-3 md:px-0 mt-28 md:mt-4 space-y-10'>
             <PopularPublications publications={popularPublications} />
@@ -88,7 +86,7 @@ const Publications = async ({ searchParams }: Props) => {
                         ))
                     }
                 </div>
-                <CustomPagination totalPages={totalPages} />
+                <CustomPagination totalCount={totalPublications} />
             </div>
         </div>
     )

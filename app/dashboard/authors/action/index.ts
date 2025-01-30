@@ -5,6 +5,7 @@ import { transliterate as tr } from "transliteration";
 
 import { db } from "@/lib/prisma";
 import { AuthorSchema, AuthorSchemaType } from "@/schema/author.schema";
+import { GET_ROLE } from "@/services/user.service";
 
 export const CREATE_AUTHOR_ACTION = async (values: AuthorSchemaType) => {
   const { data, success } = AuthorSchema.safeParse(values);
@@ -13,6 +14,14 @@ export const CREATE_AUTHOR_ACTION = async (values: AuthorSchemaType) => {
     return {
       error: "Invalid input values",
     };
+
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
 
   try {
     const author = await db.author.findFirst({
@@ -67,6 +76,14 @@ export const EDIT_AUTHOR_ACTION = async ({ id, values }: EditAuthor) => {
       error: "Invalid input values",
     };
 
+  const { isAdmin, isModerator, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isModerator || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const author = await db.author.findUnique({
       where: {
@@ -102,6 +119,14 @@ export const EDIT_AUTHOR_ACTION = async ({ id, values }: EditAuthor) => {
 };
 
 export const DELETE_AUTHOR_ACTION = async (id: string) => {
+  const { isAdmin, isEditor } = await GET_ROLE();
+
+  if (!(!isAdmin || !isEditor)) {
+    return {
+      error: "Permission denied",
+    };
+  }
+
   try {
     const author = await db.author.findUnique({
       where: {

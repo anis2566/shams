@@ -15,20 +15,13 @@ import { QuestionViewModal } from "@/app/(home)/user/questions/_components/quest
 import { ReplyModal } from "@/app/dashboard/questions/_components/reply-modal";
 import { DeleteQuestionModal } from "@/app/dashboard/questions/_components/delete-modal";
 import { DeleteBannerModal } from "@/app/dashboard/banners/_components/delete-modal";
-import { SellerStatusModal } from "@/app/dashboard/seller/request/_components/status-modal";
-import { DeleteSellerRequestModal } from "@/app/dashboard/seller/request/_components/delete-modal";
-import { DeleteSellerModal } from "@/app/dashboard/seller/_components/delete-modal";
-import { NewAuthorModal } from "@/app/seller/books/new/_components/new-author.modal";
-import { NewCategoryModal } from "@/app/seller/books/new/_components/new-category.modal";
-import { NewSubCategoryModal } from "@/app/seller/books/new/_components/new-sub-category.modal";
-import { NewPublicationModal } from "@/app/seller/books/new/_components/new-publication.modal";
-import { DeleteSellerBookModal } from "@/app/seller/books/_components/delete-modal";
-import { BookStatusModal } from "@/app/dashboard/books/_components/status-modal";
 import { DeleteOrderModal } from "@/app/dashboard/orders/_components/delete-modal";
-import { SellerOrderStatusModal } from "@/app/seller/orders/_components/status-modal";
 import { DeleteSubscriberModal } from "@/app/dashboard/subscribers/_components/delete-modal";
 import { BookGenreModal } from "@/app/dashboard/books/_components/genre-modal";
 import { CategoryGenreModal } from "@/app/dashboard/categories/_components/genre-modal";
+import { UserRoleModal } from "@/app/dashboard/users/_components/status-modal";
+import { DeleteUserModal } from "@/app/dashboard/users/_components/delete-modal";
+import { ResetPasswordModal } from "@/app/auth/reset/[id]/_components/password-modal";
 
 export const ModalProvider = () => {
     return (
@@ -48,20 +41,13 @@ export const ModalProvider = () => {
             <ReplyModal />
             <DeleteQuestionModal />
             <DeleteBannerModal />
-            <SellerStatusModal />
-            <DeleteSellerRequestModal />
-            <DeleteSellerModal />
-            <NewAuthorModal />
-            <NewCategoryModal />
-            <NewSubCategoryModal />
-            <NewPublicationModal />
-            <DeleteSellerBookModal />
-            <BookStatusModal />
             <DeleteOrderModal />
-            <SellerOrderStatusModal />
             <DeleteSubscriberModal />
             <BookGenreModal />
             <CategoryGenreModal />
+            <UserRoleModal />
+            <DeleteUserModal />
+            <ResetPasswordModal />
         </>
     );
 };
