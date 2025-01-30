@@ -50,6 +50,8 @@ const Books = async ({ searchParams }: Props) => {
     const itemsPerPage = parseInt(perPage, 10);
     const currentPage = parseInt(page, 10);
 
+    console.log(trending)
+
     const [books, totalBooks, totalbook, totalPublisBook, totalUnPublisBook] = await Promise.all([
         db.book.findMany({
             where: {
@@ -57,7 +59,7 @@ const Books = async ({ searchParams }: Props) => {
                 ...(category && { category: { name: { contains: category, mode: "insensitive" } } }),
                 ...(author && { author: { name: { contains: author, mode: "insensitive" } } }),
                 ...(publisher && { publication: { name: { contains: publisher, mode: "insensitive" } } }),
-                ...(trending && {grenre: {contains: trending, mode: "insensitive"}}),
+                ...(trending && {genre: {contains: trending, mode: "insensitive"}}),
                 ...(status && { status: status }),
             },
             include: {
@@ -78,7 +80,7 @@ const Books = async ({ searchParams }: Props) => {
                 ...(category && { category: { name: { contains: category, mode: "insensitive" } } }),
                 ...(author && { author: { name: { contains: author, mode: "insensitive" } } }),
                 ...(publisher && { publication: { name: { contains: publisher, mode: "insensitive" } } }),
-                ...(trending && {grenre: {contains: trending, mode: "insensitive"}}),
+                ...(trending && {genre: {contains: trending, mode: "insensitive"}}),
                 ...(status && { status: status }),
             },
         }),
@@ -159,7 +161,7 @@ const Books = async ({ searchParams }: Props) => {
                 </CardContent>
             </Card>
         </ContentLayout>
-    ) 
+    )
 }
 
 export default Books
