@@ -24,7 +24,7 @@ import { FilterDrawer } from "./filter-drawer";
 
 export const Header = () => {
     const [search, setSearch] = useState<string>("");
-    const [seller, setSeller] = useState<string>("");
+    const [trending, setTrending] = useState<string>("");
     const [perPage, setPerPage] = useState<string>("");
     const [sort, setSort] = useState<string>("");
     const [status, setStatus] = useState<string | BookStatus>("");
@@ -41,7 +41,7 @@ export const Header = () => {
     const categoryValue = useDebounce(category, 500);
     const publisherValue = useDebounce(publisher, 500);
     const authorValue = useDebounce(author, 500);
-    const sellerValue = useDebounce(seller, 500);
+    const trendingValue = useDebounce(trending, 500);
 
     const handleClose = () => {
         setOpen(false);
@@ -58,14 +58,14 @@ export const Header = () => {
                     category: categoryValue,
                     publisher: publisherValue,
                     author: authorValue,
-                    seller: sellerValue,
+                    trending: trendingValue,
                 },
             },
             { skipEmptyString: true, skipNull: true },
         );
 
         router.push(url);
-    }, [searchValue, categoryValue, publisherValue, authorValue, sellerValue, router, pathname]);
+    }, [searchValue, categoryValue, publisherValue, authorValue, trendingValue, router, pathname]);
 
     const handlePerPageChange = (perPage: string) => {
         setPerPage(perPage);
@@ -126,6 +126,7 @@ export const Header = () => {
         setStatus("");
         setCategory("");
         setPublisher("");
+        setTrending("")
     };
 
     return (
@@ -181,10 +182,10 @@ export const Header = () => {
                         <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
                             type="search"
-                            placeholder="seller..."
+                            placeholder="genre..."
                             className="w-full appearance-none bg-background pl-8 shadow-none"
-                            onChange={(e) => setSeller(e.target.value)}
-                            value={seller}
+                            onChange={(e) => setTrending(e.target.value)}
+                            value={trending}
                         />
                     </div>
                     <Select
