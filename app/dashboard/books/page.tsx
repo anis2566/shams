@@ -159,7 +159,7 @@ const Books = async ({ searchParams }: Props) => {
                 </CardContent>
             </Card>
         </ContentLayout>
-    )
+    ) 
 }
 
 export default Books
